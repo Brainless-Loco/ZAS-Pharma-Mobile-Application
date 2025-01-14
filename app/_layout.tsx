@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, NavigationIndependentTree } from '@react-navigation/native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { BACKGROUND_COLOR, BUTTON_COLOR, INACTIVE_TAB_ICON_COLOR, INACTIVE_TAB_LABEL_COLOR } from '@/components/ui/CustomColor';
+import { BACKGROUND_COLOR, BUTTON_COLOR, INACTIVE_TAB_ICON_COLOR, INACTIVE_TAB_LABEL_COLOR, TEXT_COLOR } from '@/components/ui/CustomColor';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Foundation from '@expo/vector-icons/Foundation';
 import DoseCalculator from './VisibleTabs/DoseCalculator';
@@ -11,6 +10,8 @@ import Activity from './VisibleTabs/Activity';
 import Home from './VisibleTabs/Home';
 import AllBusiness from './VisibleTabs/AllBusiness';
 import Feedback from './VisibleTabs/Feedback';
+import { StyleSheet } from 'react-native';
+import HeaderLeft from '@/components/Custom/Header/HeaderLeft';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +23,7 @@ export default function RootLayout() {
               initialRouteName="Home"
               screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused }) => {
-                  let size=18;
+                  let size=25;
                   const iconColor = focused ? BUTTON_COLOR : INACTIVE_TAB_ICON_COLOR; // Active/Inactive icon color
 
                   if (route.name === 'Calculate Dose') {
@@ -50,13 +51,75 @@ export default function RootLayout() {
               })}
             >
 
-          <Tab.Screen name="Calculate Dose" component={DoseCalculator} />
-          <Tab.Screen name="Activities" component={Activity} />
-          <Tab.Screen name="Home" component={Home} />
-          <Tab.Screen name="All Businesses" component={AllBusiness} />
-          <Tab.Screen name="Feedback" component={Feedback} />
+          <Tab.Screen name="Calculate Dose"
+            options={{
+              headerTitle: 'Dose Calculator',
+              headerTitleAlign: 'center',
+              headerLeft: () => (
+              <HeaderLeft/>
+              ),
+              headerTitleStyle: styles.headerTitleStyle,
+              headerStyle: styles.headerStyle
+            }}
+            component={DoseCalculator} />
+          <Tab.Screen name="Activities" 
+            options={{
+              headerTitle: 'Our Latest Activities',
+              headerTitleAlign: 'center',
+              headerLeft: () => (
+              <HeaderLeft/>
+              ),
+              headerTitleStyle: styles.headerTitleStyle,
+              headerStyle: styles.headerStyle
+            }}
+            component={Activity} />
+          <Tab.Screen name="Home" 
+            options={{
+              headerShown:false
+            }}
+            component={Home} />
+          <Tab.Screen name="All Businesses"
+            options={{
+              headerTitle: 'Our All Businesses',
+              headerTitleAlign: 'center',
+              headerLeft: () => (
+              <HeaderLeft/>
+              ),
+              headerTitleStyle: styles.headerTitleStyle,
+              headerStyle: styles.headerStyle
+            }}
+            component={AllBusiness} />
+          <Tab.Screen name="Feedback" 
+              options={{
+                headerTitle: 'Send Your Feedback',
+                headerTitleAlign: 'center',
+                headerLeft: () => (
+                <HeaderLeft/>
+                ),
+                headerTitleStyle: styles.headerTitleStyle,
+                headerStyle: styles.headerStyle
+              }}
+              component={Feedback} />
         </Tab.Navigator>
       </NavigationContainer>
     </NavigationIndependentTree>
   );
 }
+
+const styles = StyleSheet.create({
+  headerTitleStyle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: TEXT_COLOR,
+  },
+  headerStyle:{
+    backgroundColor: BACKGROUND_COLOR,
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomWidth: 0,
+    paddingHorizontal: 16,
+    margin:0,
+    padding:0,
+    height:40
+  }
+})

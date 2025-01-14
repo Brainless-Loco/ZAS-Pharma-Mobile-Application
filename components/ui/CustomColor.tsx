@@ -7,3 +7,4 @@ export const TEXT_COLOR = '#1F2024';
 export const CARD_HEADER_COLOR = '#373FAE';
 export const CARD_BACKGROUND_COLOR = '#F8F9FE';
 export const NESTED_CARD_COLOR = '#DAE4F5';
+export const TEXT_COLOR_2 = '#0A2C66';

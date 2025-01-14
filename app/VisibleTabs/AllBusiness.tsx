@@ -2,15 +2,16 @@ import { View, Text, StyleSheet,ScrollView } from 'react-native'
 import React from 'react'
 import { useNavigation } from 'expo-router';
 import { BACKGROUND_COLOR } from '@/components/ui/CustomColor';
+import { ThemedText } from '@/components/ThemedText';
+import SubHeader from '@/components/Custom/SmallSubHeader/SubHeader';
+import ExpandableBox from '@/components/Custom/ExpandableBox/ExpandableBox';
 
 export default function AllBusiness() {
 
   return (
     <ScrollView style={styles.container}>
-        <Text>
-            
-
-        </Text>
+        <SubHeader text={"We have five companies dedicated to healthcare."}/>
+        <ExpandableBox/>
         
     </ScrollView>
   )
@@ -21,7 +22,8 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: BACKGROUND_COLOR,
-      padding:10
+      padding:10,
+      paddingTop:0
     },
     boxContainer: {
       backgroundColor: '#f5f5f5',

@@ -1,10 +1,12 @@
-import { BUTTON_COLOR, CLICKABLE_TEXT_COLOR, NESTED_CARD_COLOR, TEXT_AVAILABLE_COLOR, TEXT_COLOR_2, TEXT_NOT_AVAILABLE_COLOR } from '@/components/ui/CustomColor';
+import { BUTTON_COLOR, CARD_BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR, NESTED_CARD_COLOR, TEXT_AVAILABLE_COLOR, TEXT_COLOR_2, TEXT_NOT_AVAILABLE_COLOR } from '@/components/ui/CustomColor';
 import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 
-export default function SingleProduct({ product, onPress }:{product:any, onPress:any}) {
+export default function SingleProduct({ product, onPress, isSearchItem=false }:{product:any, onPress:any, isSearchItem:boolean}) {
   return (
-    <Pressable onPress={onPress} style={styles.productBox}>
+    <Pressable onPress={onPress} style={[styles.productBox,{
+      backgroundColor: isSearchItem? CARD_BACKGROUND_COLOR:NESTED_CARD_COLOR
+    }]}>
       <View style={styles.productInfo}>
         <Text style={styles.title}>{product.title}</Text>
         <Text style={styles.genericName}>{product.genericName}</Text>

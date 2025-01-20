@@ -28,10 +28,11 @@ export default function ExpandableCategoryBox(
       {isExpanded && (
         <View style={styles.productContainer}>
             {products.map((product, index) => (
-                <SingleProduct 
-                key={index}
-                product={product}
-                onPress={() => onProductPress(product)}
+                <SingleProduct
+                  isSearchItem={false} 
+                  key={index}
+                  product={product}
+                  onPress={() => onProductPress(product)}
                 />
             ))}
         </View>

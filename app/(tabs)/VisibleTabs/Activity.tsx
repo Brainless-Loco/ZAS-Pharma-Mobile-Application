@@ -10,9 +10,6 @@ export default function Activity() {
         <SubHeader text={"For more details, tap on the social media icon."}/>
 
         <SingleActivity/>
-
-        <SingleActivity/>
-        <SingleActivity/>
         
     </ScrollView>
   )

@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <View>
       <Text>Home</Text>
-      <Pressable onPress={() => navigation.navigate('ResponsiblePersons')}>
+      <Pressable onPress={() => navigation.navigate('Categories' as never)}>
         <Text>Go to Categories</Text>
       </Pressable>
     </View>

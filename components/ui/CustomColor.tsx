@@ -8,3 +8,5 @@ export const CARD_HEADER_COLOR = '#373FAE';
 export const CARD_BACKGROUND_COLOR = '#F8F9FE';
 export const NESTED_CARD_COLOR = '#DAE4F5';
 export const TEXT_COLOR_2 = '#0A2C66';
+export const TEXT_AVAILABLE_COLOR = '#075907';
+export const TEXT_NOT_AVAILABLE_COLOR = '#780F0F';

@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import SingleProduct from '../Product/SingleProduct';
 import { BUTTON_COLOR, CARD_BACKGROUND_COLOR, CARD_HEADER_COLOR, INACTIVE_TAB_LABEL_COLOR } from '@/components/ui/CustomColor';
-import SinglePerson from './SinglePerson';
 
-export default function ResponsiblePersonsExpandableBox(
-    { groupTitle, persons }:{groupTitle: string, persons: any[]}
+export default function ExpandableCategoryBox(
+    { categoryTitle, products, onProductPress }:{ categoryTitle: string, products: any[], onProductPress: any}
 ) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const handleToggle = () => {
-    setIsExpanded(!isExpanded);
-  };
+  const handleToggle = () => setIsExpanded(!isExpanded);
 
   return (
     <Pressable onPress={handleToggle} style={styles.boxContainer}>
       <View style={styles.TitleAndButtonContainer}>
         <View style={{ width: '85%' }}>
-          <Text style={styles.groupTitle}>{groupTitle}</Text>
+            <Text style={styles.categoryTitle}>{categoryTitle}</Text>
         </View>
         <Text style={{ width: '15%', textAlign: 'right' }}>
           {isExpanded ? (
@@ -28,19 +26,17 @@ export default function ResponsiblePersonsExpandableBox(
         </Text>
       </View>
       {isExpanded && (
-        <View style={styles.personContainer}>
-          {persons.map((person, index) => (
-            <SinglePerson 
-              key={index} 
-              name={person.name} 
-              rank={person.rank} 
-              companyTitle={person.companyTitle} 
-              email={person.email} 
-              mobile={person.mobile} 
-            />
-          ))}
+        <View style={styles.productContainer}>
+            {products.map((product, index) => (
+                <SingleProduct 
+                key={index}
+                product={product}
+                onPress={() => onProductPress(product)}
+                />
+            ))}
         </View>
-      )}
+        )
+      }
     </Pressable>
   );
 }
@@ -63,12 +59,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  groupTitle: {
+  categoryTitle: {
     color: CARD_HEADER_COLOR,
     fontSize: 22,
     fontWeight: '500',
   },
-  personContainer: {
+  productContainer: {
     marginTop: 20,
   },
 });

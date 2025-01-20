@@ -1,6 +1,6 @@
-import { BACKGROUND_COLOR, BUTTON_COLOR, CARD_BACKGROUND_COLOR, TEXT_COLOR } from '@/components/ui/CustomColor';
+import { BACKGROUND_COLOR, BUTTON_COLOR, CARD_BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR, TEXT_COLOR } from '@/components/ui/CustomColor';
 import React, { useState } from 'react'
-import { View, TextInput, TouchableOpacity, StyleSheet, Text, ScrollView } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, Text  } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ExpandableCategoryBox from '@/components/Custom/Category/ExpandableCategoryBox';
 import { useNavigation } from 'expo-router';
@@ -45,6 +45,7 @@ const dummyCategoriesData = [
 
 export default function Search({}) {
   const [isMedicineSearch, setIsMedicineSearch] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   
   const navigation = useNavigation();
@@ -70,6 +71,12 @@ export default function Search({}) {
         </TouchableOpacity>
       </View>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.searchItemsContainer}>
+        {!loading &&
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color={CLICKABLE_TEXT_COLOR} />
+            <Text style={styles.loadingText}>Searching...</Text>
+          </View>
+        }
         {/* {dummyCategoriesData.map((category, index) => (
               <ExpandableCategoryBox 
                 key={index}
@@ -127,6 +134,17 @@ const styles = StyleSheet.create({
     backgroundColor: BUTTON_COLOR,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop:'50%'
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: CLICKABLE_TEXT_COLOR,
   },
   searchItemsContainer: {
     marginHorizontal: 5

@@ -4,8 +4,9 @@ import { BUTTON_COLOR, CARD_BACKGROUND_COLOR, CARD_HEADER_COLOR, INACTIVE_TAB_LA
 import { StyleSheet } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { Linking } from 'react-native';
 
-export default function ExpandableBox() {
+export default function GroupWiseExpandableBox() {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const handleToggle = () => {
@@ -29,26 +30,49 @@ export default function ExpandableBox() {
             
         </View>
         {isExpanded && (
-          <View style={styles.detailsBox}>
-            <Image
-              source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGbaR1ptnWsUX853xQpM5GmESS0ItfJJsc1Q&s' }} // Replace with your image URL
-              style={styles.image}
-            />
-            <View style={styles.titleSloganAndLinkContainer}>
-                <Text style={styles.title}>Business Title</Text>
-                <Text style={styles.slogan}>Business Slogan Here</Text>
-                <TouchableOpacity
-                    onPress={() => Linking.openURL('https://www.businesswebsite.com')} // Replace with the actual website
-                    
-                >
-                <View style={styles.linkContainer}>
-                    <Ionicons name="globe-sharp" size={20} color={BUTTON_COLOR} style={styles.link}/>
-                    <Text style={{...styles.link, fontSize:13}}>Visit Website</Text>
-                </View>
-                
-                </TouchableOpacity>
+          <View>
+            <View style={styles.detailsBox}>
+              <Image
+                source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGbaR1ptnWsUX853xQpM5GmESS0ItfJJsc1Q&s' }} // Replace with your image URL
+                style={styles.image}
+              />
+              <View style={styles.titleSloganAndLinkContainer}>
+                  <Text style={styles.title}>Business Title</Text>
+                  <Text style={styles.slogan}>Business Slogan Here</Text>
+                  <TouchableOpacity
+                      onPress={() => Linking.openURL('https://www.businesswebsite.com')} // Replace with the actual website
+                      
+                  >
+                  <View style={styles.linkContainer}>
+                      <Ionicons name="globe-sharp" size={20} color={BUTTON_COLOR} style={styles.link}/>
+                      <Text style={{...styles.link, fontSize:13}}>Visit Website</Text>
+                  </View>
+                  
+                  </TouchableOpacity>
+              </View>
+              
             </View>
-            
+            <View style={styles.detailsBox}>
+              <Image
+                source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGbaR1ptnWsUX853xQpM5GmESS0ItfJJsc1Q&s' }} // Replace with your image URL
+                style={styles.image}
+              />
+              <View style={styles.titleSloganAndLinkContainer}>
+                  <Text style={styles.title}>Business Title</Text>
+                  <Text style={styles.slogan}>Business Slogan Here</Text>
+                  <TouchableOpacity
+                      onPress={() => Linking.openURL('https://www.businesswebsite.com')} // Replace with the actual website
+                      
+                  >
+                  <View style={styles.linkContainer}>
+                      <Ionicons name="globe-sharp" size={20} color={BUTTON_COLOR} style={styles.link}/>
+                      <Text style={{...styles.link, fontSize:13}}>Visit Website</Text>
+                  </View>
+                  
+                  </TouchableOpacity>
+              </View>
+              
+            </View>
           </View>
         )}
       </Pressable>
@@ -61,6 +85,7 @@ const styles = StyleSheet.create({
       backgroundColor: CARD_BACKGROUND_COLOR,
       width:'97%',
       marginHorizontal:'auto',
+      marginBottom: 15,
       padding: 9,
       paddingVertical: 20,
       borderRadius: 15,

@@ -2,16 +2,15 @@ import { View, Text, StyleSheet,ScrollView } from 'react-native'
 import React from 'react'
 import { useNavigation } from 'expo-router';
 import { BACKGROUND_COLOR } from '@/components/ui/CustomColor';
-import { ThemedText } from '@/components/ThemedText';
 import SubHeader from '@/components/Custom/SmallSubHeader/SubHeader';
-import ExpandableBox from '@/components/Custom/ExpandableBox/ExpandableBox';
+import GroupWiseExpandableBox from '@/components/Custom/AllBusiness/GroupWiseExpandableBox';
 
 export default function AllBusiness() {
 
   return (
     <ScrollView style={styles.container}>
         <SubHeader text={"We have five companies dedicated to healthcare."}/>
-        <ExpandableBox/>
+        <GroupWiseExpandableBox/>
         
     </ScrollView>
   )

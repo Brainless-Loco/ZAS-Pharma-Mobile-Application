@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text } from 'react-native'
-import { BUTTON_COLOR, TEXT_COLOR_2 } from '@/components/ui/CustomColor'
+import { TEXT_COLOR_2 } from '@/components/ui/CustomColor'
 
 export default function SubHeader({text}) {
   return (

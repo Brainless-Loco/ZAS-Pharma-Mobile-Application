@@ -117,9 +117,6 @@ const styles = StyleSheet.create({
     elevation: 0,
     shadowOpacity: 0,
     borderBottomWidth: 0,
-    paddingHorizontal: 16,
-    margin:0,
-    padding:0,
     height:40
   }
 })

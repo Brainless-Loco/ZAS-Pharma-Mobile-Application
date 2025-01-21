@@ -4,7 +4,7 @@ import { BUTTON_COLOR, CARD_BACKGROUND_COLOR, CARD_HEADER_COLOR, INACTIVE_TAB_LA
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function GroupWiseExpandableBox() {
+export default function GroupWiseExpandableBox({ company }: { company: any }) {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const handleToggle = () => {
@@ -15,7 +15,9 @@ export default function GroupWiseExpandableBox() {
       <Pressable onPress={handleToggle} style={styles.boxContainer}>
         <View style={styles.TitleAndButtonContainer}>
             <View style={{width:'85%'}}>
-                <Text style={{color:CARD_HEADER_COLOR, fontSize:23, fontWeight:'500'}}>Title</Text>
+                <Text style={{color:CARD_HEADER_COLOR, fontSize:23, fontWeight:'500'}}>
+                  {company.groupTitle??company.groupTitle}
+                </Text>
             </View>
             <Text style={{width:'15%', textAlign:'right'}}>
                 {
@@ -31,35 +33,14 @@ export default function GroupWiseExpandableBox() {
           <View>
             <View style={styles.detailsBox}>
               <Image
-                source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGbaR1ptnWsUX853xQpM5GmESS0ItfJJsc1Q&s' }} // Replace with your image URL
+                source={{ uri:company.logoURL??company.logoURL }} // Replace with your image URL
                 style={styles.image}
               />
               <View style={styles.titleSloganAndLinkContainer}>
-                  <Text style={styles.title}>Business Title</Text>
-                  <Text style={styles.slogan}>Business Slogan Here</Text>
+                  <Text style={styles.title}>{company.title??company.title}</Text>
+                  <Text style={styles.slogan}>{company.slogan??company.slogan}</Text>
                   <TouchableOpacity
-                      onPress={() => Linking.openURL('https://www.businesswebsite.com')} // Replace with the actual website
-                      
-                  >
-                  <View style={styles.linkContainer}>
-                      <Ionicons name="globe-sharp" size={20} color={BUTTON_COLOR} style={styles.link}/>
-                      <Text style={{...styles.link, fontSize:13}}>Visit Website</Text>
-                  </View>
-                  
-                  </TouchableOpacity>
-              </View>
-              
-            </View>
-            <View style={styles.detailsBox}>
-              <Image
-                source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGbaR1ptnWsUX853xQpM5GmESS0ItfJJsc1Q&s' }} // Replace with your image URL
-                style={styles.image}
-              />
-              <View style={styles.titleSloganAndLinkContainer}>
-                  <Text style={styles.title}>Business Title</Text>
-                  <Text style={styles.slogan}>Business Slogan Here</Text>
-                  <TouchableOpacity
-                      onPress={() => Linking.openURL('https://www.businesswebsite.com')} // Replace with the actual website
+                      onPress={() => Linking.openURL(company.external_link??company.external_link)} // Replace with the actual website
                       
                   >
                   <View style={styles.linkContainer}>
@@ -132,6 +113,7 @@ const styles = StyleSheet.create({
       borderRadius: 8,
       borderBottomLeftRadius:0,
       borderBottomRightRadius:0,
+      backgroundColor: CARD_BACKGROUND_COLOR
     },
     titleSloganAndLinkContainer:{
         paddingHorizontal:10,
@@ -146,6 +128,7 @@ const styles = StyleSheet.create({
     },
     slogan: {
       fontSize: 13,
+      lineHeight: 18,
       color: TEXT_COLOR,
       marginBottom: 3,
     },

@@ -4,7 +4,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { BACKGROUND_COLOR, BUTTON_COLOR, CARD_BACKGROUND_COLOR, TEXT_COLOR, } from '@/components/ui/CustomColor';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from './../../../utils/firebase';
+import { db } from '@/utils/firebase';
 
 
 export default function Home() {

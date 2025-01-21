@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { BACKGROUND_COLOR, BUTTON_COLOR, CARD_BACKGROUND_COLOR, TEXT_COLOR, } from '@/components/ui/CustomColor';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from './../../../utils/firebase';
+
 
 export default function Home() {
   const navigation = useNavigation();
+  const [bannerLink, setBannerLink] = useState('');
 
+  const fetchBannerLink = async () => {
+    try {
+      const docRef = doc(db, 'Featured-Banner', 'latest-banner');
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        setBannerLink(docSnap.data()['banner-link']); // Fetching the banner-link field
+      } else {
+        console.log('No such document!');
+      }
+    } catch (err) {
+      console.error('Error fetching banner:', err);
+    }
+  };
+
+  useEffect(() => {
+    fetchBannerLink();
+  }, []);
+  
   return (
     <View style={styles.container}>
       {/* Search Icon */}
@@ -32,7 +55,7 @@ export default function Home() {
       {/* Advertisement Section */}
       <View style={styles.advertisementContainer}>
         <Text style={styles.adText}>Latest Update</Text>
-        <Image source={{ uri: 'https://external-preview.redd.it/tUapPFycZENmYtLSKR4MNkni72_pJgcRCIrxoTYHvWQ.png?auto=webp&s=cb5887733fe77d825e3f7eadb06fe2dfd4ae380f' }} style={styles.adImage} />
+        {bannerLink ==''? <Text>No Banner found..</Text>:<Image source={{ uri: bannerLink }} style={styles.adImage} />}
       </View>
     </View>
   );

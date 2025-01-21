@@ -9,6 +9,10 @@ dist/
 web-build/
 expo-env.d.ts
 
+# custom
+
+environmentVariables/
+
 # Native
 *.orig.*
 *.jks

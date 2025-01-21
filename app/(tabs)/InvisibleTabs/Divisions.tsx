@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View, ActivityIndicator, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import ExpandableCategoryBox from '@/components/Custom/Category/ExpandableCategoryBox';
 import { BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR } from '@/components/ui/CustomColor';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '@/utils/firebase';
+import ExpandableDivisionBox from '@/components/Custom/Division/ExpandableDivisionBox';
 
-const dummyCategoriesData = [
+const dummyDivisionsData = [
   {
-    categoryTitle: 'Pain Relief',
+    divisionTitle: 'Pain Relief',
     products: [
       {
         title: 'Paracetamol',
@@ -23,7 +25,7 @@ const dummyCategoriesData = [
     ],
   },
   {
-    categoryTitle: 'Antibiotics',
+    divisionTitle: 'Antibiotics',
     products: [
       {
         title: 'Amoxicillin',
@@ -41,8 +43,29 @@ const dummyCategoriesData = [
   },
 ];
 
-export default function Categories() {
+export default function Divisions() {
   const [loading, setLoading] = useState(false);
+  const [divisions, setDivisions] = useState([]);
+
+  const fetchDivisions = async () => {
+      try {
+        setLoading(true)
+        const querySnapshot = await getDocs(collection(db, 'Divisions'));
+        const divisionsData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(), // Spread the document fields
+        }));
+        setDivisions(divisionsData as any);
+        setLoading(false)
+      } catch (err) {
+        console.error('Error fetching divisions:', err);
+        setLoading(false)
+      }
+    };
+  
+    useEffect(() => {
+      fetchDivisions();
+    }, []);
   
   const navigation = useNavigation();
 
@@ -62,14 +85,15 @@ export default function Categories() {
         </View>
       }
       
-      {!loading && dummyCategoriesData.map((category, index) => (
-        <ExpandableCategoryBox 
+      {!loading && divisions.map((division: { id: string; title: string; products: any[] }, index) => {
+        return <ExpandableDivisionBox 
           key={index}
-          categoryTitle={category.categoryTitle}
-          products={category.products}
-          onProductPress={handleProductPress}
+          title={division.title}
+          id={division.id}
+          products={dummyDivisionsData[0].products}
         />
-      ))}
+      })}
+      <View style={{height:50}}></View>
     </ScrollView>
   );
 }
@@ -79,9 +103,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: BACKGROUND_COLOR,
-    padding: 5,
-    paddingTop:15,
-    paddingHorizontal:12
+    paddingVertical:15,
+    paddingHorizontal:12,
   },
   loadingContainer: {
     flex: 1,

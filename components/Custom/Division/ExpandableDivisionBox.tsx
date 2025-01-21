@@ -4,8 +4,8 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import SingleProduct from '../Product/SingleProduct';
 import { BUTTON_COLOR, CARD_BACKGROUND_COLOR, CARD_HEADER_COLOR, CLICKABLE_TEXT_COLOR, INACTIVE_TAB_LABEL_COLOR } from '@/components/ui/CustomColor';
 
-export default function ExpandableCategoryBox(
-    { categoryTitle, products, onProductPress }:{ categoryTitle: string, products: any[], onProductPress: any}
+export default function ExpandableDivisionBox(
+    { title, products, id }:{ title: string, products: any[], id:string}
 ) {
   const [isExpanded, setIsExpanded] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -16,7 +16,7 @@ export default function ExpandableCategoryBox(
     <Pressable onPress={handleToggle} style={styles.boxContainer}>
       <View style={styles.TitleAndButtonContainer}>
         <View style={{ width: '85%' }}>
-            <Text style={styles.categoryTitle}>{categoryTitle}</Text>
+            <Text style={styles.divisionTitle}>{title}</Text>
         </View>
         <Text style={{ width: '15%', textAlign: 'right' }}>
           {isExpanded ? (
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  categoryTitle: {
+  divisionTitle: {
     color: CARD_HEADER_COLOR,
     fontSize: 22,
     fontWeight: '500',

@@ -12,7 +12,7 @@ import Activity from './VisibleTabs/Activity';
 import Home from './VisibleTabs/Home';
 import AllBusiness from './VisibleTabs/AllBusiness';
 import Feedback from './VisibleTabs/Feedback';
-import Categories from './InvisibleTabs/Categories';
+import Categories from './InvisibleTabs/Divisions';
 import Search from './InvisibleTabs/Search';
 import ProductDetails from './InvisibleTabs/ProductDetails';
 import ResponsiblePersons from './InvisibleTabs/ResponsiblePersons';

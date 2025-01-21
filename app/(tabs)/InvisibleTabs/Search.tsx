@@ -2,7 +2,7 @@ import { BACKGROUND_COLOR, BUTTON_COLOR, CARD_BACKGROUND_COLOR, CLICKABLE_TEXT_C
 import React, { useState } from 'react'
 import { View, TextInput, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, Text  } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import ExpandableCategoryBox from '@/components/Custom/Category/ExpandableCategoryBox';
+import ExpandableCategoryBox from '@/components/Custom/Division/ExpandableDivisionBox';
 import { useNavigation } from 'expo-router';
 import SingleProduct from '@/components/Custom/Product/SingleProduct';
 

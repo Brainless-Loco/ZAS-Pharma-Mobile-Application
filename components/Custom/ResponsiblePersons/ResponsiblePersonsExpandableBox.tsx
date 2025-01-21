@@ -54,10 +54,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 25,
     borderRadius: 15,
-    shadowColor: '#000',
-    shadowOpacity: 0.8,
-    shadowRadius: 10,
-    elevation: 6,
+    shadowColor:"#000000",
+    shadowOffset: {
+      width: 3,
+      height: 5,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 13,
+    elevation: 10,
   },
   TitleAndButtonContainer: {
     flexDirection: 'row',

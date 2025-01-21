@@ -1,10 +1,15 @@
-import { StyleSheet, ScrollView } from 'react-native'
-import React from 'react'
-import { BACKGROUND_COLOR } from '@/components/ui/CustomColor';
+import { StyleSheet, ScrollView, View, ActivityIndicator, Text } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR } from '@/components/ui/CustomColor';
 import SubHeader from '@/components/Custom/SmallSubHeader/SubHeader';
 import ResponsiblePersonsExpandableBox from '@/components/Custom/ResponsiblePersons/ResponsiblePersonsExpandableBox';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '@/utils/firebase';
 
 export default function ResponsiblePersons() {
+  
+    const [loading, setLoading] = useState(false);
+    const [divisions, setDivisions] = useState([]);
     const dummyData = [
         {
           groupTitle: 'Management Team',
@@ -45,17 +50,42 @@ export default function ResponsiblePersons() {
           ],
         },
       ];
+    const fetchDivisions = async () => {
+          try {
+            setLoading(true)
+            const querySnapshot = await getDocs(collection(db, 'Divisions'));
+            const divisionsData = querySnapshot.docs.map(doc => ({
+              id: doc.id,
+              ...doc.data(), // Spread the document fields
+            }));
+            setDivisions(divisionsData as any);
+            setLoading(false)
+          } catch (err) {
+            console.error('Error fetching divisions:', err);
+            setLoading(false)
+          }
+        };
       
+    useEffect(() => {
+      fetchDivisions();
+    }, []);
     return (
         <ScrollView style={styles.container}>
             <SubHeader text={"You are one call away to place an order. Please make a call to our responsible persons for every individual category."} />
-            {dummyData.map((group, index) => (
-                <ResponsiblePersonsExpandableBox 
-                key={index}
-                groupTitle={group.groupTitle}
-                persons={group.persons}
+            {divisions.map((division: { id: string; title: string;}, index) => (
+                <ResponsiblePersonsExpandableBox
+                  id={division.id} 
+                  key={index}
+                  groupTitle={division.title}
+                  persons={dummyData[0].persons}
                 />
             ))}
+            {loading &&
+              <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" color={CLICKABLE_TEXT_COLOR} />
+                <Text style={styles.loadingText}>Searching...</Text>
+              </View>
+            }
 
         </ScrollView>
     )
@@ -68,5 +98,16 @@ const styles = StyleSheet.create({
         backgroundColor: BACKGROUND_COLOR,
         padding: 5,
         paddingTop: 0
+    },
+    loadingContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop:'50%'
+    },
+    loadingText: {
+      marginTop: 10,
+      fontSize: 16,
+      color: CLICKABLE_TEXT_COLOR,
     },
 });

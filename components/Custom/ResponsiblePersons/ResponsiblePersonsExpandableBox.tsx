@@ -5,7 +5,7 @@ import { BUTTON_COLOR, CARD_BACKGROUND_COLOR, CARD_HEADER_COLOR, INACTIVE_TAB_LA
 import SinglePerson from './SinglePerson';
 
 export default function ResponsiblePersonsExpandableBox(
-    { groupTitle, persons }:{groupTitle: string, persons: any[]}
+    { groupTitle, persons, id }:{groupTitle: string, persons: any[], id:string}
 ) {
   const [isExpanded, setIsExpanded] = useState(false);
 

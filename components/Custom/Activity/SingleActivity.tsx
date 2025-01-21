@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, Linking } from 'react-native';
-import { Ionicons, AntDesign } from '@expo/vector-icons';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { BUTTON_COLOR, CARD_BACKGROUND_COLOR, TEXT_COLOR } from '@/components/ui/CustomColor';
 
 export default function SingleActivity() {

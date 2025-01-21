@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { BUTTON_COLOR, NESTED_CARD_COLOR, INACTIVE_TAB_LABEL_COLOR, TEXT_COLOR, TEXT_COLOR_2 } from '@/components/ui/CustomColor';
+import { BUTTON_COLOR, NESTED_CARD_COLOR, TEXT_COLOR_2 } from '@/components/ui/CustomColor';
 
 export default function SinglePerson(
     {name, rank, companyTitle, email, mobile }: 

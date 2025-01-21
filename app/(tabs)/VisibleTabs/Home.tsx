@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
-import { BACKGROUND_COLOR, BUTTON_COLOR, CARD_BACKGROUND_COLOR, TEXT_COLOR, TEXT_COLOR_2 } from '@/components/ui/CustomColor';
+import { BACKGROUND_COLOR, BUTTON_COLOR, CARD_BACKGROUND_COLOR, TEXT_COLOR, } from '@/components/ui/CustomColor';
 
 export default function Home() {
   const navigation = useNavigation();

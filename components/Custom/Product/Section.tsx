@@ -1,6 +1,6 @@
 import { CLICKABLE_TEXT_COLOR, TEXT_COLOR_2 } from '@/components/ui/CustomColor';
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text,  StyleSheet } from 'react-native';
 
 const Section: React.FC<{ label: string; content: string | string[]; isList?: boolean }> = ({ label, content, isList }) => (
     <View style={styles.section}>

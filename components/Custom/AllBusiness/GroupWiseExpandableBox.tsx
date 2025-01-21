@@ -1,10 +1,8 @@
-import { View, Text, Image, TouchableOpacity, Pressable } from 'react-native'
+import { View, Text, Image, TouchableOpacity, Pressable,Linking,StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { BUTTON_COLOR, CARD_BACKGROUND_COLOR, CARD_HEADER_COLOR, INACTIVE_TAB_LABEL_COLOR, NESTED_CARD_COLOR, TEXT_COLOR } from '@/components/ui/CustomColor';
-import { StyleSheet } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Linking } from 'react-native';
 
 export default function GroupWiseExpandableBox() {
     const [isExpanded, setIsExpanded] = useState(false);

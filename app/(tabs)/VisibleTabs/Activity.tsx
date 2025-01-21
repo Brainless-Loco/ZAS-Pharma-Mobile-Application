@@ -1,16 +1,45 @@
-import { StyleSheet,ScrollView } from 'react-native'
-import React from 'react'
-import { BACKGROUND_COLOR } from '@/components/ui/CustomColor';
+import { StyleSheet,ScrollView, ActivityIndicator, Text } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR } from '@/components/ui/CustomColor';
 import SubHeader from '@/components/Custom/SmallSubHeader/SubHeader';
 import SingleActivity from '@/components/Custom/Activity/SingleActivity';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '@/utils/firebase';
 
 export default function Activity() {
+
+  const [loading, setLoading] = useState(false)
+  const [activities, setActivities] = useState([]);
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        setLoading(true)
+        const querySnapshot = await getDocs(collection(db, 'Activities'));
+        const activityData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...(doc.data() as { date: string })
+        }));
+        activityData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        setActivities(activityData as any);
+      } catch (error) {
+        console.error('Error fetching activities:', error);
+      }
+      setLoading(false)
+    };
+
+    fetchActivities();
+  }, []);
+  
   return (
     <ScrollView style={styles.container}>
         <SubHeader text={"For more details, tap on the social media icon."}/>
-
-        <SingleActivity/>
-        
+        {
+          activities.length > 0 && activities.map(
+                (activity, index) =>
+                      <SingleActivity key={index} activity={activity} />)
+        }
+        {activities.length === 0 && <Text>No activities found.</Text>}
+        {loading && <ActivityIndicator style={styles.loadingState} size={50} color={CLICKABLE_TEXT_COLOR} />}
     </ScrollView>
   )
 }
@@ -23,4 +52,7 @@ const styles = StyleSheet.create({
     padding: 5,
     paddingTop:0
   },
+  loadingState:{
+    marginHorizontal:'auto',
+  }
 });

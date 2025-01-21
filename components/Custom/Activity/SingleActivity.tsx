@@ -3,27 +3,27 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, Linking } from 'react-
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { BUTTON_COLOR, CARD_BACKGROUND_COLOR, TEXT_COLOR } from '@/components/ui/CustomColor';
 
-export default function SingleActivity() {
-  const currentDate = 'JAN 20';  // Example date
+export default function SingleActivity({activity}:{activity:any}) {
+  const currentDate = 'JAN 20';
 
   return (
     <View style={styles.activityBox}>
       <View style={styles.imageContainer}>
         <Image
-          source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGbaR1ptnWsUX853xQpM5GmESS0ItfJJsc1Q&s' }}  // Replace with your image URL
+          source={{ uri: activity.bannerUrl }}  // Replace with your image URL
           style={styles.image}
         />
         <View style={styles.dateContainer}>
-          <Text style={styles.dateText}>{currentDate}</Text>
+          <Text style={styles.dateText}>{new Date(activity.date).toLocaleDateString('en-US', { month: 'short', day: '2-digit' }).toUpperCase()}</Text>
         </View>
       </View>
-      <Text style={styles.title}>Activity Title Goes Here</Text>
+      <Text style={styles.title}>{activity.title}</Text>
       <View style={styles.socialLinksContainer}>
-        <TouchableOpacity style={styles.socialLink} onPress={()=> Linking.openURL('')}>
+        <TouchableOpacity style={styles.socialLink} onPress={()=> Linking.openURL(activity.facebookLink)}>
           <AntDesign name="facebook-square" size={16} color={BUTTON_COLOR} />
           <Text style={styles.socialText}>Facebook</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.socialLink}  onPress={()=> Linking.openURL('')}>
+        <TouchableOpacity style={styles.socialLink}  onPress={()=> Linking.openURL(activity.linkedInLink)}>
           <AntDesign name="linkedin-square" size={16} color={BUTTON_COLOR} />
           <Text style={styles.socialText}>LinkedIn</Text>
         </TouchableOpacity>

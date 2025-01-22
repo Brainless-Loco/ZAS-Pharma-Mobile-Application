@@ -1,8 +1,10 @@
 import Section from '@/components/Custom/Product/Section';
 import { BACKGROUND_COLOR, BUTTON_COLOR, CARD_BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR,  TEXT_AVAILABLE_COLOR, TEXT_COLOR, TEXT_COLOR_2, TEXT_NOT_AVAILABLE_COLOR } from '@/components/ui/CustomColor';
+import { db } from '@/utils/firebase';
 import { useNavigation } from 'expo-router';
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
+import { doc, getDoc } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, Linking } from 'react-native';
 
 
 const dummyProduct = {
@@ -24,13 +26,45 @@ const dummyProduct = {
   images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGbaR1ptnWsUX853xQpM5GmESS0ItfJJsc1Q&s', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGbaR1ptnWsUX853xQpM5GmESS0ItfJJsc1Q&s'],
 };
 
-const ProductDetails = ({product}:{product:any}) => {
+const ProductDetails = ({route}:{route:any}) => {
     const navigation = useNavigation();
+
+    const {product} = route.params;
+
+    const [generalInfo, setGeneralInfo] = useState({ medical_queries_link: '', report_adverse_events_link: '' });
+
+
+    const getCountryWithFlag = (name: string)=>{
+      const country = countries.find(country => country.name === name);
+      return country ? `${country.name} ${country.flag}` : `${name} (Flag not found)`;
+    }
+
+    useEffect(() => {
+      const fetchGeneralInfo = async () => {
+        try {
+          const docRef = doc(db, 'All-General-information', 'general-info');
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            setGeneralInfo(data as any);
+          } else {
+            console.error('No such document!');
+          }
+        } catch (error) {
+          console.error('Error fetching general info:', error);
+        }
+      };
+  
+      fetchGeneralInfo();
+    }, []);
+
+    
+
     const renderContent = () => [
       <View style={[styles.imageSliderContainer]}>
           <FlatList
             horizontal
-            data={dummyProduct.images}
+            data={product.pictures}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
               <Image source={{ uri: item }} style={styles.productImage} />
@@ -39,50 +73,49 @@ const ProductDetails = ({product}:{product:any}) => {
             style={{height:'100%', marginVertical:'auto' }}
           />
       </View>,
-      ,
       <View style={styles.categoryContainer}>
         <Text> 
           <Text style={styles.categoryLabel}>Category: &nbsp;</Text>
-          <Text style={styles.categoryTitle}>{dummyProduct.category}</Text>
+          <Text style={styles.categoryTitle}>{product.category}</Text>
         </Text>
       </View>,
-      <Text key="title" style={styles.title}>{dummyProduct.title}</Text>,
-      <Text key="genericName" style={styles.genericName}>{dummyProduct.genericName}</Text>,
-      <Text key="dosageForm" style={styles.dosageForm}>{dummyProduct.dosageForm}</Text>,
-      <Section key="manufacturer" label="Manufacturer" content={dummyProduct.manufacturer} />,
-      <Section key="origin" label="Origin" content={dummyProduct.origin} />,
+      <Text key="title" style={styles.title}>{product.title}</Text>,
+      <Text key="genericName" style={styles.genericName}>{product.generic_name}</Text>,
+      <Text key="dosageForm" style={styles.dosageForm}>{product.dosage_form}</Text>,
+      <Section key="manufacturer" label="Manufacturer" content={product.manufacturer_info.name} />,
+      <Section key="origin" label="Origin" content={getCountryWithFlag(product.origin)} />,
       <Text key="pricesTitle" style={styles.priceSectionTitle}>Prices</Text>,
       <FlatList
         key="prices"
-        data={dummyProduct.prices}
+        data={product.available_strength}
         renderItem={({ item }) => (
           <View style={styles.priceContainer}>
-            <Text style={styles.priceText}>{item.optionTitle}: {item.packageSize} - {item.price}</Text>
-            <Text style={item.available ? styles.available : styles.notAvailable}>
-              {item.available ? 'Available' : 'Not Available'}
+            <Text style={styles.priceText}>{item.option_title} ({item.package_size}) - {item.price}</Text>
+            <Text style={item.if_available ? styles.available : styles.notAvailable}>
+              {item.if_available ? 'Available' : 'Not Available'}
             </Text>
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}
         style={styles.allPricesContainer}
       />,
-      <Section key="dosage" label="Dosage" content={dummyProduct.dosage} isList />,
-      <Section key="sideEffects" label="Side Effects" content={dummyProduct.sideEffects} isList />,
-      <Section key="indications" label="Indications" content={dummyProduct.indications} isList />,
+      <Section key="dosage" label="Dosage" content={product.dosing_information} isList />,
+      <Section key="sideEffects" label="Side Effects" content={product.side_effects} isList />,
+      <Section key="indications" label="Indications" content={product.indications} isList />,
       <View key="bottomButtons" style={styles.bottomButtons}>
-        <TouchableOpacity style={styles.bottomButton}>
+        <TouchableOpacity onPress={()=>Linking.openURL(generalInfo.medical_queries_link)} style={styles.bottomButton}>
           <Text style={styles.bottomButtonText}>Medical Queries</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.bottomButton}>
+        <TouchableOpacity onPress={()=>Linking.openURL(generalInfo.report_adverse_events_link)} style={styles.bottomButton}>
           <Text style={styles.bottomButtonText}>Report Adverse Events</Text>
         </TouchableOpacity>
       </View>,
       <Text key="knowMore" style={styles.knowMoreAboutText}>KNOW MORE ABOUT</Text>,
-      <View key="bottomButtons" style={[styles.bottomButtons, {marginBottom:130}]}>
-        <TouchableOpacity style={styles.bottomButton}>
+      <View key="bottomButtons" style={[styles.bottomButtons, {marginBottom:80}]}>
+        <TouchableOpacity style={styles.bottomButton} onPress={()=>Linking.openURL(product.additional_documents_link)}>
           <Text style={styles.bottomButtonText}>Product</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.bottomButton}>
+        <TouchableOpacity style={styles.bottomButton} onPress={()=>Linking.openURL(product.manufacturer_info.website_link)}>
           <Text style={styles.bottomButtonText}>Manufacturer</Text>
         </TouchableOpacity>
       </View>
@@ -91,12 +124,12 @@ const ProductDetails = ({product}:{product:any}) => {
     return (
       <View 
           style={styles.container}>
-          <FlatList
+          { product &&  <FlatList
             data={renderContent()}
             renderItem={({ item }) => item as any}
             keyExtractor={(_, index) => index.toString()}
             showsVerticalScrollIndicator={false}
-          />
+          /> }
           
         <TouchableOpacity onPress={()=>{navigation.navigate('ResponsiblePersons' as never)}} key="orderButton" style={styles.orderButton}>
           <Text style={styles.buttonText}>Click to Order</Text>
@@ -127,7 +160,8 @@ const styles = StyleSheet.create({
     width: 320, 
     height: 240, 
     marginRight: 5,
-    marginVertical:'auto', 
+    marginVertical:'auto',
+    backgroundColor: 'white', 
     borderRadius: 10,
     shadowColor:"#000000",
     shadowOffset: {
@@ -202,7 +236,7 @@ const styles = StyleSheet.create({
   orderButton: {
     position:'absolute',
     left:'58%',
-    bottom:'10%',
+    bottom:'2%',
     backgroundColor: BUTTON_COLOR,
     borderRadius: 35,
     paddingHorizontal: 30,
@@ -255,3 +289,64 @@ const styles = StyleSheet.create({
     textAlign:'center'
   }
 });
+
+
+const countries = [
+  { name: "Albania", code: "AL", flag: "🇦🇱" },
+  { name: "Argentina", code: "AR", flag: "🇦🇷" },
+  { name: "Australia", code: "AU", flag: "🇦🇺" },
+  { name: "Austria", code: "AT", flag: "🇦🇹" },
+  { name: "Bangladesh", code: "BD", flag: "🇧🇩" },
+  { name: "Belgium", code: "BE", flag: "🇧🇪" },
+  { name: "Bosnia and Herzegovina", code: "BA", flag: "🇧🇦" },
+  { name: "Brazil", code: "BR", flag: "🇧🇷" },
+  { name: "Bulgaria", code: "BG", flag: "🇧🇬" },
+  { name: "Canada", code: "CA", flag: "🇨🇦" },
+  { name: "Chile", code: "CL", flag: "🇨🇱" },
+  { name: "China", code: "CN", flag: "🇨🇳" },
+  { name: "Colombia", code: "CO", flag: "🇨🇴" },
+  { name: "Croatia", code: "HR", flag: "🇭🇷" },
+  { name: "Czech Republic", code: "CZ", flag: "🇨🇿" },
+  { name: "Denmark", code: "DK", flag: "🇩🇰" },
+  { name: "Egypt", code: "EG", flag: "🇪🇬" },
+  { name: "Finland", code: "FI", flag: "🇫🇮" },
+  { name: "France", code: "FR", flag: "🇫🇷" },
+  { name: "Germany", code: "DE", flag: "🇩🇪" },
+  { name: "Greece", code: "GR", flag: "🇬🇷" },
+  { name: "Hungary", code: "HU", flag: "🇭🇺" },
+  { name: "India", code: "IN", flag: "🇮🇳" },
+  { name: "Indonesia", code: "ID", flag: "🇮🇩" },
+  { name: "Iran", code: "IR", flag: "🇮🇷" },
+  { name: "Italy", code: "IT", flag: "🇮🇹" },
+  { name: "Japan", code: "JP", flag: "🇯🇵" },
+  { name: "Kosovo", code: "XK", flag: "🇽🇰" },
+  { name: "Malaysia", code: "MY", flag: "🇲🇾" },
+  { name: "Mexico", code: "MX", flag: "🇲🇽" },
+  { name: "Montenegro", code: "ME", flag: "🇲🇪" },
+  { name: "Netherlands", code: "NL", flag: "🇳🇱" },
+  { name: "Nigeria", code: "NG", flag: "🇳🇬" },
+  { name: "North Macedonia", code: "MK", flag: "🇲🇰" },
+  { name: "Norway", code: "NO", flag: "🇳🇴" },
+  { name: "Pakistan", code: "PK", flag: "🇵🇰" },
+  { name: "Philippines", code: "PH", flag: "🇵🇭" },
+  { name: "Poland", code: "PL", flag: "🇵🇱" },
+  { name: "Portugal", code: "PT", flag: "🇵🇹" },
+  { name: "Romania", code: "RO", flag: "🇷🇴" },
+  { name: "Russia", code: "RU", flag: "🇷🇺" },
+  { name: "Saudi Arabia", code: "SA", flag: "🇸🇦" },
+  { name: "Serbia", code: "RS", flag: "🇷🇸" },
+  { name: "Singapore", code: "SG", flag: "🇸🇬" },
+  { name: "Slovakia", code: "SK", flag: "🇸🇰" },
+  { name: "Slovenia", code: "SI", flag: "🇸🇮" },
+  { name: "South Africa", code: "ZA", flag: "🇿🇦" },
+  { name: "South Korea", code: "KR", flag: "🇰🇷" },
+  { name: "Spain", code: "ES", flag: "🇪🇸" },
+  { name: "Sweden", code: "SE", flag: "🇸🇪" },
+  { name: "Switzerland", code: "CH", flag: "🇨🇭" },
+  { name: "Thailand", code: "TH", flag: "🇹🇭" },
+  { name: "Turkey", code: "TR", flag: "🇹🇷" },
+  { name: "Ukraine", code: "UA", flag: "🇺🇦" },
+  { name: "United Kingdom", code: "GB", flag: "🇬🇧" },
+  { name: "United States", code: "US", flag: "🇺🇸" },
+  { name: "Vietnam", code: "VN", flag: "🇻🇳" },
+];

@@ -6,9 +6,14 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 export default function SingleProduct({ product, isSearchItem=false }:{product:any, isSearchItem:boolean}) {
   const navigation = useNavigation()
   const isAvailable = product.available_strength?.some((strength: { if_available: boolean }) => strength.if_available) ?? false;
+  type NavigationParams = {
+    product: any; // Replace `any` with a specific type if you have one
+  };
+  
   
   return (
-    <Pressable onPress={()=>{navigation.navigate('ProductDetails' as never)}} style={[styles.productBox,{
+    <Pressable 
+        onPress={()=>{navigation.navigate('ProductDetails',{product})}} style={[styles.productBox,{
       backgroundColor: isSearchItem? CARD_BACKGROUND_COLOR:NESTED_CARD_COLOR
     }]}>
       <View style={styles.productInfo}>

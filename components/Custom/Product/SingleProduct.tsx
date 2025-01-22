@@ -1,15 +1,27 @@
 import { CARD_BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR, NESTED_CARD_COLOR, TEXT_AVAILABLE_COLOR, TEXT_COLOR_2, TEXT_NOT_AVAILABLE_COLOR } from '@/components/ui/CustomColor';
+import { NavigationProp } from '@react-navigation/native';
 import { useNavigation } from 'expo-router';
 import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 
+
+type RootStackParamList = {
+  ProductDetails: { product: any }; // Define `product` with a proper type if possible
+  OtherScreen: undefined; // Add other screens if necessary
+};
+
+
 export default function SingleProduct({ product, isSearchItem=false }:{product:any, isSearchItem:boolean}) {
-  const navigation = useNavigation()
+
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+
   const isAvailable = product.available_strength?.some((strength: { if_available: boolean }) => strength.if_available) ?? false;
+
   
   return (
     <Pressable 
-        onPress={()=>{navigation.navigate('ProductDetails',{product} as any)}} style={[styles.productBox,{
+        onPress={()=>{navigation.navigate('ProductDetails',{product})}} style={[styles.productBox,{
       backgroundColor: isSearchItem? CARD_BACKGROUND_COLOR:NESTED_CARD_COLOR
     }]}>
       <View style={styles.productInfo}>

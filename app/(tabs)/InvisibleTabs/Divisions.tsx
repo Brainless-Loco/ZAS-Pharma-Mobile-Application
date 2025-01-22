@@ -90,7 +90,6 @@ export default function Divisions() {
           key={index}
           title={division.title}
           id={division.id}
-          products={dummyDivisionsData[0].products}
         />
       })}
       <View style={{height:50}}></View>

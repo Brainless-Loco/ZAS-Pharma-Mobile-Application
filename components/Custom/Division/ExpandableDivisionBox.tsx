@@ -3,14 +3,35 @@ import { View, Text, Pressable, StyleSheet, ActivityIndicator  } from 'react-nat
 import AntDesign from '@expo/vector-icons/AntDesign';
 import SingleProduct from '../Product/SingleProduct';
 import { BUTTON_COLOR, CARD_BACKGROUND_COLOR, CARD_HEADER_COLOR, CLICKABLE_TEXT_COLOR, INACTIVE_TAB_LABEL_COLOR } from '@/components/ui/CustomColor';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '@/utils/firebase';
 
 export default function ExpandableDivisionBox(
-    { title, products, id }:{ title: string, products: any[], id:string}
+    { title, id }:{ title: string, id:string}
 ) {
   const [isExpanded, setIsExpanded] = useState(false);
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]);
 
-  const handleToggle = () => setIsExpanded(!isExpanded);
+  const handleToggle = async () => {
+    setIsExpanded(!isExpanded);
+    if (!isExpanded) {
+      setLoading(true);
+      const productsRef = collection(db, `Divisions/${id}/Products`);
+      try {
+        const productData = await getDocs(productsRef);
+        const productList = productData.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setProducts(productList as any);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
 
   return (
     <Pressable onPress={handleToggle} style={styles.boxContainer}>
@@ -28,22 +49,26 @@ export default function ExpandableDivisionBox(
       </View>
       <View style={{marginTop: isExpanded? 20:0}}>
           {
-            !loading && isExpanded &&
-                products.map((product, index) => (
-                    <SingleProduct
-                      isSearchItem={false} 
-                      key={index}
-                      product={product}
-                      onPress={() => onProductPress(product)}
-                    />
-                ))
-            }
-            {loading && isExpanded &&
-                <View style={styles.loadingContainer}>
-                  <ActivityIndicator size="large" color={CLICKABLE_TEXT_COLOR} />
-                  <Text style={styles.loadingText}>Loading...</Text>
-                </View>
-              }
+          !loading && isExpanded &&
+              products.map((product, index) => (
+                  <SingleProduct
+                    isSearchItem={false} 
+                    key={index}
+                    product={product}
+                  />
+              ))
+          }
+          {!loading && isExpanded && products.length<1 &&
+              <View style={styles.loadingContainer}>
+                <Text style={styles.loadingText}>No Medicine is found for this division.</Text>
+              </View>
+          }
+          {loading && isExpanded &&
+              <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" color={CLICKABLE_TEXT_COLOR} />
+                <Text style={styles.loadingText}>Loading...</Text>
+              </View>
+          }
         </View>
     </Pressable>
   );

@@ -24,7 +24,7 @@ const dummyProduct = {
   images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGbaR1ptnWsUX853xQpM5GmESS0ItfJJsc1Q&s', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGbaR1ptnWsUX853xQpM5GmESS0ItfJJsc1Q&s'],
 };
 
-const ProductDetails = () => {
+const ProductDetails = ({product}:{product:any}) => {
     const navigation = useNavigation();
     const renderContent = () => [
       <View style={[styles.imageSliderContainer]}>

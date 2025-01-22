@@ -40,7 +40,7 @@ export default function Home() {
       </TouchableOpacity>
 
       {/* Logo */}
-      <Image source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGbaR1ptnWsUX853xQpM5GmESS0ItfJJsc1Q&s' }} style={styles.logo} />
+      <Image source={require('@/assets/images/zas-group-logo.png')} style={styles.logo} />
 
       {/* Buttons */}
       <View style={styles.buttonContainer}>

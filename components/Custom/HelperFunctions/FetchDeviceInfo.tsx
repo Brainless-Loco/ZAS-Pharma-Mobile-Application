@@ -23,6 +23,9 @@ export const getDeviceInfo = async () => {
     osVersion: Device.osVersion,
     productName: Device.productName,
     platformApiLevel: Device.platformApiLevel,
+    batteryLevel,
+    networkState,
+    diskInfo,
   };
 
   return deviceInfo;

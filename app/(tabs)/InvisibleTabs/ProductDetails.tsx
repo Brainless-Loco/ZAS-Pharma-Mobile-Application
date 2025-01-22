@@ -244,6 +244,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 4 },
     shadowOpacity: 0.4,
     elevation: 5,
+    opacity:0.9
   },
   buttonText: { 
     color: CARD_BACKGROUND_COLOR,

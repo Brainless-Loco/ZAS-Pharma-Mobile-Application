@@ -1,10 +1,12 @@
 import { BACKGROUND_COLOR, BUTTON_COLOR, CARD_BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR, TEXT_COLOR } from '@/components/ui/CustomColor';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, TextInput, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, Text  } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ExpandableCategoryBox from '@/components/Custom/Division/ExpandableDivisionBox';
 import { useNavigation } from 'expo-router';
 import SingleProduct from '@/components/Custom/Product/SingleProduct';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '@/utils/firebase';
 
 const dummyCategoriesData = [
   {
@@ -44,8 +46,14 @@ const dummyCategoriesData = [
 ];
 
 export default function Search({}) {
+  const [searchQuery, setSearchQuery] = useState('');
   const [isMedicineSearch, setIsMedicineSearch] = useState(true);
+  const [medicines, setMedicines] = useState([]);
+  const [divisions, setDivisions] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const [searchedMedicines, setSearchedMedicines] = useState([])
+  const [searchedDivisions, setSearchedDivisions] = useState([])
 
   
   const navigation = useNavigation();
@@ -54,45 +62,147 @@ export default function Search({}) {
     setIsMedicineSearch(!isMedicineSearch);
   };
 
-  const handleProductPress = (product: any) => {
-    navigation.navigate('ProductDetails' as never);
-  };
+  
+  const fetchMedicines = async ()=>{
+    setLoading(true);
+    const productsRef = collection(db, `Products`);
+    try {
+      const medicineData = await getDocs(productsRef);
+      const medicineList = medicineData.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setMedicines(medicineList as any);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const fetchDivisions = async () =>{
+    setLoading(true);
+    const divisionsRef = collection(db, 'Divisions');
+    try {
+      const divisionData = await getDocs(divisionsRef);
+      const divisionList = divisionData.docs.map((doc) => ({
+        id: doc.id,
+       ...doc.data(),
+      }));
+      setDivisions(divisionList as any);
+    } catch (error) {
+      console.error('Error fetching divisions:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchMedicines()
+    fetchDivisions()
+  }, [])
+
+  useEffect(()=>{
+    if(searchQuery){
+      const filteredMedicines = medicines.filter((medicine: any) => {
+        const query = searchQuery.toLowerCase();
+      
+        return (
+          medicine.title?.toLowerCase().includes(query) ||
+          medicine.generic_name?.toLowerCase().includes(query) ||
+          medicine.origin?.toLowerCase().includes(query) ||
+          medicine.manufacturer_info?.name?.toLowerCase().includes(query) ||
+          medicine.side_effects?.some((effect: string) => effect.toLowerCase().includes(query)) ||
+          medicine.indications?.some((indication: string) => indication.toLowerCase().includes(query)) ||
+          medicine.dosing_information?.some((info: string) => info.toLowerCase().includes(query)) ||
+          medicine.available_strength?.some((strength: any) => 
+            strength.option_title?.toLowerCase().includes(query) || 
+            strength.package_size?.toLowerCase().includes(query) || 
+            strength.price?.toLowerCase().includes(query) || 
+            strength.dosage_form?.toLowerCase().includes(query)
+          )
+        );
+      });      
+      setSearchedMedicines(filteredMedicines);
+      const filteredDivisions = divisions.filter((division: any) => {
+        const query = searchQuery.toLowerCase();
+        return (
+          division.title?.toLowerCase().includes(query) ||
+          division.description?.toLowerCase().includes(query)
+        );
+      });      
+      setSearchedDivisions(filteredDivisions);
+    }
+    else{
+      
+    }
+  },[searchQuery])
+
+  
 
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
         <Ionicons name="search" size={22} color="#666" style={styles.searchIcon} />
         <TextInput
-          placeholder={isMedicineSearch ? "Search Medicines..." : "Search Products..."}
+          placeholder={isMedicineSearch ? "Search Medicines..." : "Search Divisions..."}
+          value={searchQuery}
           style={styles.searchInput}
+          onChangeText={(text:string)=>{setSearchQuery(text)}}
         />
         <TouchableOpacity onPress={toggleSearchType} style={styles.swapButton}>
           <Ionicons name="swap-horizontal" size={20} color="#fff" />
         </TouchableOpacity>
       </View>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.searchItemsContainer}>
-        {!loading &&
+        {loading &&
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color={CLICKABLE_TEXT_COLOR} />
             <Text style={styles.loadingText}>Searching...</Text>
           </View>
         }
-        {/* {dummyCategoriesData.map((category, index) => (
-              <ExpandableCategoryBox 
-                key={index}
-                categoryTitle={category.categoryTitle}
-                products={category.products}
-                onProductPress={handleProductPress}
-              />
-            ))} */}
-            {/* {dummyCategoriesData[0].products.map((product, index) => (
-                <SingleProduct
-                  isSearchItem={true} 
+        {!loading && !searchQuery && !isMedicineSearch && divisions.length>0 &&
+              divisions.map((division:{title:string, id:string}, index) => (
+                <ExpandableCategoryBox 
                   key={index}
-                  product={product}
-                  onPress={() => {}}
+                  title={division.title}
+                  id={division.id}
                 />
-            ))} */}
+              ))
+            }
+
+          {/* For Searching.... */}
+          {
+              searchQuery && !isMedicineSearch && searchedDivisions.length>0 && 
+              searchedDivisions.map((division:{title:string, id:string}, index) => (
+                  <ExpandableCategoryBox 
+                    key={index}
+                    title={division.title}
+                    id={division.id}
+                  />
+                ))
+            }
+            {!loading && !searchQuery && isMedicineSearch && medicines.length>0 && 
+                medicines.map((product, index) => (
+                    <SingleProduct
+                      isSearchItem={true} 
+                      key={index}
+                      product={product}
+                    />
+                ))
+            }
+            {
+              searchQuery && isMedicineSearch && searchedMedicines.length>0 && 
+                searchedMedicines.map((product, index) => (
+                  <SingleProduct
+                    isSearchItem={true} 
+                    key={index}
+                    product={product}
+                  />
+              ))
+            }
+
+            
       </ScrollView>
     </View>
   )
@@ -102,8 +212,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: BACKGROUND_COLOR,
-    padding: 5,
-    paddingTop:0
+    paddingHorizontal: 5,
+    paddingVertical:0
   },
   searchContainer: {
     flexDirection: 'row',

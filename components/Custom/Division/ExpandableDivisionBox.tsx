@@ -49,7 +49,7 @@ export default function ExpandableDivisionBox(
       </View>
       <View style={{marginTop: isExpanded? 20:0}}>
           {
-          !loading && isExpanded &&
+          !loading && isExpanded && products.length>0 &&
               products.map((product, index) => (
                   <SingleProduct
                     isSearchItem={false} 

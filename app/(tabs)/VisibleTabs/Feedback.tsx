@@ -1,9 +1,13 @@
 import DynamicCheckboxGroup from '@/components/Custom/Feedback/DynamicCheckboxGroup';
 import SubHeader from '@/components/Custom/SmallSubHeader/SubHeader';
 import { BACKGROUND_COLOR, BUTTON_COLOR, CARD_BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR, TEXT_COLOR } from '@/components/ui/CustomColor';
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, Platform, Dimensions } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { useIsFocused } from '@react-navigation/native';
+import { getDeviceInfo } from '@/components/Custom/HelperFunctions/FetchDeviceInfo';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '@/utils/firebase';
 
 
 export default function Feedback() {
@@ -21,7 +25,14 @@ export default function Feedback() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = () => {
+
+  const isFocused = useIsFocused()
+
+  
+
+  const handleSubmit = async () => {
+    setLoading(true)
+    const info = await getDeviceInfo()
     const feedbackData = {
       name,
       contact,
@@ -33,8 +44,42 @@ export default function Feedback() {
       deliverySatisfaction,
       suggestions,
       comments,
+      device_info:info
     };
+
+    try {
+      await addDoc(collection(db, 'Feedbacks'), feedbackData);
+      setSubmitted(true)
+      initializeEverything()
+    } catch (error) {
+      console.error('Error adding feedback:', error);
+    }
+    setLoading(false)
   };
+
+  const initializeEverything = ()=>{
+    setLoading(false);
+    setName('');
+    setContact('');
+    setEmail('');
+    setRole('');
+    setProductQuality('');
+    setServiceExperience('');
+    setProductReliability('');
+    setDeliverySatisfaction('');
+    setSuggestions('');
+    setComments('');
+  }
+
+  useEffect(()=>{
+    if(isFocused) {
+      initializeEverything()
+      setSubmitted(false);
+    }
+  },[isFocused])
+
+
+
   if(loading){
     return (
       <View style={styles.loadingContainer}>
@@ -43,7 +88,7 @@ export default function Feedback() {
       </View>
     )
   }
-  if(submitted){
+  if(!loading && submitted){
     return (
       <View style={styles.submittedContainer}>
         <MaterialCommunityIcons name="hand-okay" size={200} color={CLICKABLE_TEXT_COLOR} />
@@ -228,6 +273,7 @@ const styles = StyleSheet.create({
   multilineInput: {
     minHeight: 80, // Adjust for more space
     textAlignVertical: 'top', // Align text at the top
+    maxHeight: 200
   },
   submitButton: {
     width: '50%',

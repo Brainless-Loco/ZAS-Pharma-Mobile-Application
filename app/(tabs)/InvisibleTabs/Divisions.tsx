@@ -1,51 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View, ActivityIndicator, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR } from '@/components/ui/CustomColor';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/utils/firebase';
 import ExpandableDivisionBox from '@/components/Custom/Division/ExpandableDivisionBox';
 
-const dummyDivisionsData = [
-  {
-    divisionTitle: 'Pain Relief',
-    products: [
-      {
-        title: 'Paracetamol',
-        genericName: 'Acetaminophen',
-        strengthForm: '500 mg in 10 tablets',
-        isAvailable: true,
-      },
-      {
-        title: 'Ibuprofen',
-        genericName: 'Ibuprofen',
-        strengthForm: '200 mg in 20 capsules',
-        isAvailable: false,
-      },
-    ],
-  },
-  {
-    divisionTitle: 'Antibiotics',
-    products: [
-      {
-        title: 'Amoxicillin',
-        genericName: 'Amoxicillin',
-        strengthForm: '250 mg in 10 tablets',
-        isAvailable: true,
-      },
-      {
-        title: 'Azithromycin',
-        genericName: 'Azithromycin',
-        strengthForm: '500 mg in 5 tablets',
-        isAvailable: true,
-      },
-    ],
-  },
-];
-
 export default function Divisions() {
   const [loading, setLoading] = useState(false);
   const [divisions, setDivisions] = useState([]);
+
+  const isFocused = useIsFocused();
 
   const fetchDivisions = async () => {
       try {
@@ -64,16 +29,10 @@ export default function Divisions() {
     };
   
     useEffect(() => {
-      fetchDivisions();
-    }, []);
-  
-  const navigation = useNavigation();
-
-  const handleProductPress = (product: any) => {
-    navigation.navigate('ProductDetails' as never);
-  };
-
-
+      if (isFocused) {
+        fetchDivisions();
+      }
+    }, [isFocused]);
 
 
   return (

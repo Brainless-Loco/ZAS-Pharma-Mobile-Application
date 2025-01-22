@@ -5,11 +5,16 @@ import SubHeader from '@/components/Custom/SmallSubHeader/SubHeader';
 import ResponsiblePersonsExpandableBox from '@/components/Custom/ResponsiblePersons/ResponsiblePersonsExpandableBox';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/utils/firebase';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function ResponsiblePersons() {
   
     const [loading, setLoading] = useState(false);
     const [divisions, setDivisions] = useState([]);
+
+    
+    const isFocused = useIsFocused();
+
     const dummyData = [
         {
           groupTitle: 'Management Team',
@@ -64,11 +69,15 @@ export default function ResponsiblePersons() {
             console.error('Error fetching divisions:', err);
             setLoading(false)
           }
-        };
+      };
       
     useEffect(() => {
-      fetchDivisions();
-    }, []);
+      if(isFocused){
+        fetchDivisions();
+      }
+    }, [isFocused]);
+
+
     return (
         <ScrollView style={styles.container}>
             <SubHeader text={"You are one call away to place an order. Please make a call to our responsible persons for every individual category."} />

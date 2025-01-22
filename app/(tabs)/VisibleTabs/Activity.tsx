@@ -5,8 +5,11 @@ import SubHeader from '@/components/Custom/SmallSubHeader/SubHeader';
 import SingleActivity from '@/components/Custom/Activity/SingleActivity';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/utils/firebase';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function Activity() {
+
+  const isFocused = useIsFocused()
 
   const [loading, setLoading] = useState(false)
   const [activities, setActivities] = useState([]);
@@ -27,8 +30,11 @@ export default function Activity() {
       setLoading(false)
     };
 
-    fetchActivities();
-  }, []);
+    if(isFocused) {
+      setActivities([])
+      fetchActivities();
+    }
+  }, [isFocused]);
   
   return (
     <ScrollView style={styles.container}>
@@ -38,7 +44,7 @@ export default function Activity() {
                 (activity, index) =>
                       <SingleActivity key={index} activity={activity} />)
         }
-        {activities.length === 0 && <Text>No activities found.</Text>}
+        {!loading && activities.length === 0 && <Text>No activities found.</Text>}
         {loading && <ActivityIndicator style={styles.loadingState} size={50} color={CLICKABLE_TEXT_COLOR} />}
     </ScrollView>
   )

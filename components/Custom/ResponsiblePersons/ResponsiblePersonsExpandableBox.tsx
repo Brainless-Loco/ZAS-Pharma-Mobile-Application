@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ActivityIndicator } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { BUTTON_COLOR, CARD_BACKGROUND_COLOR, CARD_HEADER_COLOR, CLICKABLE_TEXT_COLOR, INACTIVE_TAB_LABEL_COLOR } from '@/components/ui/CustomColor';
 import SinglePerson from './SinglePerson';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/utils/firebase';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function ResponsiblePersonsExpandableBox(
     { groupTitle, persons, id }:{groupTitle: string, persons: any[], id:string}
 ) {
+
+  const isFocused = useIsFocused()
+
+
   const [isExpanded, setIsExpanded] = useState(false);
   const [loading, setLoading] = useState(false);
   const [responsiblePersons, setResponsiblePersons] = useState([]);
@@ -36,6 +41,12 @@ export default function ResponsiblePersonsExpandableBox(
       }
     }
   };
+
+  useEffect(() =>{
+    setLoading(false);
+    setIsExpanded(false);
+    setResponsiblePersons([])
+  },[isFocused])
 
   return (
     <Pressable onPress={handleToggle} style={styles.boxContainer}>

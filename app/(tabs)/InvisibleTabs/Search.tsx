@@ -7,6 +7,7 @@ import { useNavigation } from 'expo-router';
 import SingleProduct from '@/components/Custom/Product/SingleProduct';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/utils/firebase';
+import { useIsFocused } from '@react-navigation/native';
 
 const dummyCategoriesData = [
   {
@@ -55,8 +56,7 @@ export default function Search({}) {
   const [searchedMedicines, setSearchedMedicines] = useState([])
   const [searchedDivisions, setSearchedDivisions] = useState([])
 
-  
-  const navigation = useNavigation();
+  const isFocused = useIsFocused()
 
   const toggleSearchType = () => {
     setIsMedicineSearch(!isMedicineSearch);
@@ -98,9 +98,11 @@ export default function Search({}) {
   }
 
   useEffect(() => {
-    fetchMedicines()
-    fetchDivisions()
-  }, [])
+    if(isFocused){
+      fetchMedicines()
+      fetchDivisions()
+    }
+  }, [isFocused])
 
   useEffect(()=>{
     if(searchQuery){

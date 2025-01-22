@@ -9,7 +9,7 @@ export default function SingleProduct({ product, isSearchItem=false }:{product:a
   
   return (
     <Pressable 
-        onPress={()=>{navigation.navigate('ProductDetails',{product})}} style={[styles.productBox,{
+        onPress={()=>{navigation.navigate('ProductDetails',{product} as any)}} style={[styles.productBox,{
       backgroundColor: isSearchItem? CARD_BACKGROUND_COLOR:NESTED_CARD_COLOR
     }]}>
       <View style={styles.productInfo}>

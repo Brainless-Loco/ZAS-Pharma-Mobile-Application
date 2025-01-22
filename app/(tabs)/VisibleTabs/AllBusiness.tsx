@@ -5,12 +5,14 @@ import SubHeader from '@/components/Custom/SmallSubHeader/SubHeader';
 import GroupWiseExpandableBox from '@/components/Custom/AllBusiness/GroupWiseExpandableBox';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/utils/firebase';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function AllBusiness() {
 
   const [loading, setLoading] = useState(false)
   const [companies, setCompanies] = useState([]);
 
+  const isFocused = useIsFocused()
 
   const fetchCompanies = async () => {
     try {
@@ -29,8 +31,11 @@ export default function AllBusiness() {
   };
 
   useEffect(() => {
-    fetchCompanies();
-  }, []);
+    if(isFocused){
+      setCompanies([])
+      fetchCompanies();
+    }
+  }, [isFocused]);
   
 
   return (
@@ -44,7 +49,7 @@ export default function AllBusiness() {
             />
           ))
         }
-        {companies.length === 0 && <Text>No companies found.</Text>}
+        {!loading && companies.length === 0 && <Text>No companies found.</Text>}
         {loading && <ActivityIndicator style={styles.loadingState} size={50} color={CLICKABLE_TEXT_COLOR} />}
         
     </ScrollView>

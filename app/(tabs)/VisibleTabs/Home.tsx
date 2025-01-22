@@ -44,7 +44,7 @@ export default function Home() {
 
       {/* Buttons */}
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.actionButton} onPress={() => navigation.navigate('Categories' as never)}>
+        <TouchableOpacity style={styles.actionButton} onPress={() => navigation.navigate('Divisions' as never)}>
           <Text style={styles.buttonText}>Our All Products</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.actionButton} onPress={() => navigation.navigate('ResponsiblePersons' as never)}>

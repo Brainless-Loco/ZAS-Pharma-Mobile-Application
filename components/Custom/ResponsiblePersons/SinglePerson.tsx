@@ -4,8 +4,8 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { BUTTON_COLOR, NESTED_CARD_COLOR, TEXT_COLOR_2 } from '@/components/ui/CustomColor';
 
 export default function SinglePerson(
-    {name, rank, companyTitle, email, mobile }: 
-    {name: string; rank: string; companyTitle: string; email: string; mobile: string;}
+    {name, rank, companyTitle, email, mobiles }: 
+    {name: string; rank: string; companyTitle: string; email: string; mobiles: string[];}
 ) {
   return (
     <View style={styles.personBox}>
@@ -18,10 +18,14 @@ export default function SinglePerson(
           <MaterialIcons name="email" size={22} color={BUTTON_COLOR} />
           <Text style={styles.emailText}>{email}</Text>
         </TouchableOpacity> */}
-        <TouchableOpacity onPress={() => Linking.openURL(`tel:${mobile}`)} style={styles.contactItem}>
-          <Ionicons name="call" size={22} color={BUTTON_COLOR} />
-          <Text style={styles.phoneText}>Call Now</Text>
-        </TouchableOpacity>
+        {
+          mobiles.map((mobile, index) => (
+            <TouchableOpacity key={index} onPress={() => Linking.openURL(`tel:${mobile}`)} style={styles.contactItem}>
+              <Ionicons name="call" size={22} color={BUTTON_COLOR} />
+              <Text style={styles.phoneText}>Call Now</Text>
+            </TouchableOpacity>
+          ))
+        }
       </View>
     </View>
   );

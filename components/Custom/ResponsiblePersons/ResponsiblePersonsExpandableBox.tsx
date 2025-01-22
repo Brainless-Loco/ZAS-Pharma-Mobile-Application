@@ -1,16 +1,40 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ActivityIndicator } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { BUTTON_COLOR, CARD_BACKGROUND_COLOR, CARD_HEADER_COLOR, INACTIVE_TAB_LABEL_COLOR } from '@/components/ui/CustomColor';
+import { BUTTON_COLOR, CARD_BACKGROUND_COLOR, CARD_HEADER_COLOR, CLICKABLE_TEXT_COLOR, INACTIVE_TAB_LABEL_COLOR } from '@/components/ui/CustomColor';
 import SinglePerson from './SinglePerson';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '@/utils/firebase';
 
 export default function ResponsiblePersonsExpandableBox(
     { groupTitle, persons, id }:{groupTitle: string, persons: any[], id:string}
 ) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [responsiblePersons, setResponsiblePersons] = useState([]);
+  
 
-  const handleToggle = () => {
+  const handleToggle = async () => {
     setIsExpanded(!isExpanded);
+    
+    if (!isExpanded) {
+      setLoading(true);
+      
+      try {
+        const responsiblePersonsRef = collection(db, `Divisions/${id}/ResponsiblePersons`);
+        const querySnapshot = await getDocs(responsiblePersonsRef);
+        const personsData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setResponsiblePersons(personsData as any);
+      } catch (error) {
+        console.error('Error fetching responsible persons:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
   };
 
   return (
@@ -27,16 +51,27 @@ export default function ResponsiblePersonsExpandableBox(
           )}
         </Text>
       </View>
+      {loading && isExpanded &&
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color={CLICKABLE_TEXT_COLOR} />
+            <Text style={styles.loadingText}>Loading...</Text>
+          </View>
+        }
+      {!loading && isExpanded && responsiblePersons.length==0 &&
+          <View style={styles.loadingContainer}>
+            <Text style={styles.loadingText}>No responsible persons found for this division.</Text>
+          </View>
+        }
       {isExpanded && (
         <View style={styles.personContainer}>
-          {persons.map((person, index) => (
+          {responsiblePersons.map(({name, rank, company, email, mobiles}:{name:string, rank:string, company:string, email:string, mobiles:string[]}, index) => (
             <SinglePerson 
               key={index} 
-              name={person.name} 
-              rank={person.rank} 
-              companyTitle={person.companyTitle} 
-              email={person.email} 
-              mobile={person.mobile} 
+              name={name} 
+              rank={rank} 
+              companyTitle={company} 
+              email={email} 
+              mobiles={mobiles} 
             />
           ))}
         </View>
@@ -74,5 +109,16 @@ const styles = StyleSheet.create({
   },
   personContainer: {
     marginTop: 20,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop:'5%'
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: CLICKABLE_TEXT_COLOR,
   },
 });

@@ -6,8 +6,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 
 
 type RootStackParamList = {
-  ProductDetails: { product: any }; // Define `product` with a proper type if possible
-  OtherScreen: undefined; // Add other screens if necessary
+  ProductDetails: { product: object };
 };
 
 

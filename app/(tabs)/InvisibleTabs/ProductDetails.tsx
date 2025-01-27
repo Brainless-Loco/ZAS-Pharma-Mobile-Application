@@ -1,33 +1,18 @@
 import Section from '@/components/Custom/Product/Section';
 import { BACKGROUND_COLOR, BUTTON_COLOR, CARD_BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR,  TEXT_AVAILABLE_COLOR, TEXT_COLOR, TEXT_COLOR_2, TEXT_NOT_AVAILABLE_COLOR } from '@/components/ui/CustomColor';
 import { db } from '@/utils/firebase';
+import { NavigationProp } from '@react-navigation/native';
 import { useNavigation } from 'expo-router';
 import { doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, Linking } from 'react-native';
 
-
-const dummyProduct = {
-  category: 'Antibiotics',
-  title: 'Amoxicillin',
-  genericName: 'Amoxicillin Trihydrate',
-  dosageForm: 'Tablet',
-  manufacturer: 'ABC Pharma Ltd.',
-  manufacturerLink: 'https://abcpharma.com',
-  origin: 'USA',
-  additional_document_link: 'https://example.com/product-doc',
-  prices: [
-    { optionTitle: 'Standard', packageSize: '10 x 250mg', price: '$5', available: true },
-    { optionTitle: 'Premium', packageSize: '10 x 500mg', price: '$9', available: false },
-  ],
-  dosage: ['Take one tablet every 8 hours with water.'],
-  sideEffects: ['Nausea', 'Diarrhea', 'Skin rash'],
-  indications: ['Bacterial infections', 'Upper respiratory tract infection'],
-  images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGbaR1ptnWsUX853xQpM5GmESS0ItfJJsc1Q&s', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGbaR1ptnWsUX853xQpM5GmESS0ItfJJsc1Q&s'],
+type RootStackParamList = {
+  ResponsiblePersons: { toBeExpandedDivisionId: string, toBeExpandedDivisionTitle: string };
 };
 
 const ProductDetails = ({route}:{route:any}) => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
     const {product} = route.params;
 
@@ -57,8 +42,6 @@ const ProductDetails = ({route}:{route:any}) => {
   
       fetchGeneralInfo();
     }, []);
-
-    
 
     const renderContent = () => [
       <View style={[styles.imageSliderContainer]}>
@@ -131,7 +114,7 @@ const ProductDetails = ({route}:{route:any}) => {
             showsVerticalScrollIndicator={false}
           /> }
           
-        <TouchableOpacity onPress={()=>{navigation.navigate('ResponsiblePersons' as never)}} key="orderButton" style={styles.orderButton}>
+        <TouchableOpacity onPress={()=>{navigation.navigate('ResponsiblePersons',{toBeExpandedDivisionId:product.divisionId, toBeExpandedDivisionTitle:product.divisionTitle})}} key="orderButton" style={styles.orderButton}>
           <Text style={styles.buttonText}>Click to Order</Text>
         </TouchableOpacity>
       </View>

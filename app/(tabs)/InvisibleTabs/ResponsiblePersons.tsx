@@ -7,8 +7,10 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/utils/firebase';
 import { useIsFocused } from '@react-navigation/native';
 
-export default function ResponsiblePersons() {
-  
+export default function ResponsiblePersons({route}:{route:any}) {
+
+    const {toBeExpandedDivisionId, toBeExpandedDivisionTitle} = route.params??{}
+
     const [loading, setLoading] = useState(false);
     const [divisions, setDivisions] = useState([]);
 
@@ -86,7 +88,7 @@ export default function ResponsiblePersons() {
                   id={division.id} 
                   key={index}
                   groupTitle={division.title}
-                  persons={dummyData[0].persons}
+                  toBeExpanded={division.id==toBeExpandedDivisionId && division.title == toBeExpandedDivisionTitle}
                 />
             ))}
             {loading &&

@@ -8,7 +8,7 @@ import { db } from '@/utils/firebase';
 import { useIsFocused } from '@react-navigation/native';
 
 export default function ResponsiblePersonsExpandableBox(
-    { groupTitle, persons, id }:{groupTitle: string, persons: any[], id:string}
+    { groupTitle, id, toBeExpanded }:{groupTitle: string, id:string, toBeExpanded:boolean}
 ) {
 
   const isFocused = useIsFocused()
@@ -48,8 +48,14 @@ export default function ResponsiblePersonsExpandableBox(
     setResponsiblePersons([])
   },[isFocused])
 
+  useEffect(()=>{
+    if(toBeExpanded){
+      handleToggle()
+    }
+  },[toBeExpanded])
+
   return (
-    <Pressable onPress={handleToggle} style={styles.boxContainer}>
+    <Pressable onPress={handleToggle} style={[styles.boxContainer, toBeExpanded && {borderColor: BUTTON_COLOR, borderWidth:2,}]}>
       <View style={styles.TitleAndButtonContainer}>
         <View style={{ width: '85%' }}>
           <Text style={styles.groupTitle}>{groupTitle}</Text>

@@ -14,9 +14,9 @@ export default function Calculator({route}:{route:any}) {
 
     return (
         <ScrollView style={styles.container}>
-        <Text>Calculator</Text>
+        <Text>This Screen is being implemented. However, you can check an overview o the result screen.</Text>
         <Pressable onPress={()=>{navigation.navigate('RecommendedDosing',{product:product})}}>
-            <Text> RecommendedDosing for {product.title}</Text>
+            <Text> Recommended Dosing for {product.title}</Text>
         </Pressable>
         </ScrollView>
     )
@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     backgroundColor: BACKGROUND_COLOR,
     paddingHorizontal:12,
     paddingTop:12,
+    paddingBottom:12,
   },
   loadingContainer: {
     flex: 1,

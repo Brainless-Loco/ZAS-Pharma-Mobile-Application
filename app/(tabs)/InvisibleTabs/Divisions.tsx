@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View, ActivityIndicator, Text } from 'react-native';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import { BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR } from '@/components/ui/CustomColor';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/utils/firebase';
@@ -26,13 +26,13 @@ export default function Divisions() {
         console.error('Error fetching divisions:', err);
         setLoading(false)
       }
-    };
-  
-    useEffect(() => {
-      if (isFocused) {
-        fetchDivisions();
-      }
-    }, [isFocused]);
+  };
+
+  useEffect(() => {
+    if (isFocused) {
+      fetchDivisions();
+    }
+  }, [isFocused]);
 
 
   return (

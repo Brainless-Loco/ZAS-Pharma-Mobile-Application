@@ -16,6 +16,8 @@ import Search from './InvisibleTabs/Search';
 import ProductDetails from './InvisibleTabs/ProductDetails';
 import ResponsiblePersons from './InvisibleTabs/ResponsiblePersons';
 import Divisions from './InvisibleTabs/Divisions';
+import Calculator from './InvisibleTabs/Calculator';
+import RecommendedDosing from './InvisibleTabs/RecommendedDosing';
 
 const Tab = createBottomTabNavigator();
 
@@ -162,6 +164,35 @@ export default function RootLayout() {
                     headerStyle: styles.headerStyle
                 }}
             />
+
+            <Tab.Screen name="Dose Calculator For A Product"
+                component={Calculator}
+                options={{
+                    tabBarItemStyle:{display:'none'},
+                    headerTitle: 'Dose Calculator',
+                    headerTitleAlign: 'center',
+                    headerLeft: () => (
+                    <HeaderLeft/>
+                    ),
+                    headerTitleStyle: styles.headerTitleStyle,
+                    headerStyle: styles.headerStyle
+                }}
+            />
+
+
+            <Tab.Screen name="RecommendedDosing"
+                component={RecommendedDosing}
+                options={{
+                    tabBarItemStyle:{display:'none'},
+                    headerTitle: 'Recommended Dosing',
+                    headerTitleAlign: 'center',
+                    headerLeft: () => (
+                    <HeaderLeft/>
+                    ),
+                    headerTitleStyle: styles.headerTitleStyle,
+                    headerStyle: styles.headerStyle
+                }}
+                />
 
         </Tab.Navigator>
       </NavigationContainer>

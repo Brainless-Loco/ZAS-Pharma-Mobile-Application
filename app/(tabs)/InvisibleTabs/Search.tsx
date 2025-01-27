@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { View, TextInput, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, Text  } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ExpandableCategoryBox from '@/components/Custom/Division/ExpandableDivisionBox';
-import { useNavigation } from 'expo-router';
 import SingleProduct from '@/components/Custom/Product/SingleProduct';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/utils/firebase';
@@ -190,6 +189,7 @@ export default function Search({}) {
                       isSearchItem={true} 
                       key={index}
                       product={product}
+                      isForDoseCalculation={false}
                     />
                 ))
             }
@@ -200,6 +200,7 @@ export default function Search({}) {
                     isSearchItem={true} 
                     key={index}
                     product={product}
+                    isForDoseCalculation={false}
                   />
               ))
             }

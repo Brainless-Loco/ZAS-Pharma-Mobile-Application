@@ -1,4 +1,5 @@
-import { CARD_BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR, NESTED_CARD_COLOR, TEXT_AVAILABLE_COLOR, TEXT_COLOR_2, TEXT_NOT_AVAILABLE_COLOR } from '@/components/ui/CustomColor';
+import { BUTTON_COLOR, CARD_BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR, NESTED_CARD_COLOR, TEXT_AVAILABLE_COLOR, TEXT_COLOR_2, TEXT_NOT_AVAILABLE_COLOR } from '@/components/ui/CustomColor';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { NavigationProp } from '@react-navigation/native';
 import { useNavigation } from 'expo-router';
 import React from 'react';
@@ -6,18 +7,31 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 
 
 type RootStackParamList = {
-  ProductDetails: { product: object };
+  'ProductDetails': { product: object };
+  'Dose Calculator For A Product': {product: object}
 };
 
 
-export default function SingleProduct({ product, isSearchItem=false }:{product:any, isSearchItem:boolean}) {
+export default function SingleProduct({ product, isSearchItem=false, isForDoseCalculation=false }:{product:any, isSearchItem:boolean, isForDoseCalculation:boolean}) {
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
 
   const isAvailable = product.available_strength?.some((strength: { if_available: boolean }) => strength.if_available) ?? false;
 
-  
+  if(isForDoseCalculation){
+    return(
+      <View style={styles.productBoxForDoseCalculator}>
+        <Text style={styles.title}>{product.title}</Text>
+        <Text style={styles.genericName}>{product.generic_name}</Text>
+        <Pressable style={styles.doseCalculatorNavigationBtn} onPress={()=>{navigation.navigate('Dose Calculator For A Product',{product})}}>
+          <Text>
+          <MaterialCommunityIcons name="calculator-variant" size={20} color={BUTTON_COLOR} /></Text>
+          <Text style={styles.doseCalculatorNavigationBtnText}>Open Dose Calculator</Text>
+        </Pressable>
+    </View>
+    )
+  }
   return (
     <Pressable 
         onPress={()=>{navigation.navigate('ProductDetails',{product})}} style={[styles.productBox,{
@@ -49,6 +63,26 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     marginBottom: 6,
     flexDirection:'row',
+  },
+  productBoxForDoseCalculator:{
+    backgroundColor: CARD_BACKGROUND_COLOR,
+    padding: 15,
+    borderRadius: 15,
+    shadowColor: '#000',
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+    elevation: 4,
+    marginHorizontal: 4,
+    marginBottom: 6,
+  },
+  doseCalculatorNavigationBtn:{
+    flexDirection: 'row',
+  },
+  doseCalculatorNavigationBtnText:{
+    fontSize: 14,
+    fontWeight: '400',
+    marginLeft: 5,
+    color: BUTTON_COLOR
   },
   productInfo: {
     flex: 2,

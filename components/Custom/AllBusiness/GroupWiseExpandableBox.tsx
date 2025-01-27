@@ -43,10 +43,10 @@ export default function GroupWiseExpandableBox({ company }: { company: any }) {
                       onPress={() => Linking.openURL(company.external_link??company.external_link)} // Replace with the actual website
                       
                   >
-                  <View style={styles.linkContainer}>
-                      <Ionicons name="globe-sharp" size={20} color={BUTTON_COLOR} style={styles.link}/>
-                      <Text style={{...styles.link, fontSize:13}}>Visit Website</Text>
-                  </View>
+                    <View style={styles.linkContainer}>
+                        <Ionicons name="globe-sharp" size={20} color={BUTTON_COLOR} style={styles.link}/>
+                        <Text style={{...styles.link, fontSize:13}}>Visit Website</Text>
+                    </View>
                   
                   </TouchableOpacity>
               </View>

@@ -54,6 +54,7 @@ export default function RootLayout() {
                 },
                 animation:'shift'
               })}
+              backBehavior={'history'}
             >
           {/* Visible Tabs */}
           <Tab.Screen name="Calculate Dose"

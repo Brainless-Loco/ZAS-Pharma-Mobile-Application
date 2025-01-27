@@ -8,7 +8,7 @@ export default function HeaderLeft() {
     const navigation = useNavigation();
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Home' as never)}>
+    <TouchableOpacity onPress={() => navigation.goBack()}>
         <Ionicons name="chevron-back" size={35} color={BUTTON_COLOR} />
     </TouchableOpacity>
   )

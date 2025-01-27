@@ -143,7 +143,7 @@ export default ProductDetails;
 
 const styles = StyleSheet.create({
   container: { 
-    paddingHorizontal: 15,
+    paddingHorizontal: 12,
     backgroundColor: BACKGROUND_COLOR,
     position: 'relative' 
   },
@@ -152,14 +152,14 @@ const styles = StyleSheet.create({
     height: 260,
     width:'100%',
     display: 'flex',
-    flexDirection:'row',
+    flexDirection:'column',
     justifyContent:'center',
     alignItems: 'center',
   },
   productImage: { 
     width: 320, 
     height: 240, 
-    marginRight: 5,
+    marginRight: 6,
     marginVertical:'auto',
     backgroundColor: 'white', 
     borderRadius: 10,

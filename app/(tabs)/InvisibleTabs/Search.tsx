@@ -223,6 +223,7 @@ const styles = StyleSheet.create({
     backgroundColor: CARD_BACKGROUND_COLOR,
     borderRadius: 15,
     paddingHorizontal: 10,
+    paddingVertical: 7,
     shadowColor:"#000000",
     shadowOffset: {
       width: 3,

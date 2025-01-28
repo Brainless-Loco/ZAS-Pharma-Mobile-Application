@@ -56,17 +56,18 @@ const ProductDetails = ({route}:{route:any}) => {
             style={{height:'100%', marginVertical:'auto' }}
           />
       </View>,
-      <View style={styles.categoryContainer}>
+      <View style={styles.categoryAndGenericNameContainer}>
         <Text> 
-          <Text style={styles.categoryLabel}>Category: &nbsp;</Text>
-          <Text style={styles.categoryTitle}>{product.category}</Text>
+          <Text style={styles.catAndGNLabel}>Category: &nbsp;</Text>
+          <Text style={styles.catAndGNTitle}>{product.category}</Text>
+        </Text>
+        <Text> 
+          <Text style={styles.catAndGNLabel}>Generic Name: &nbsp;</Text>
+          <Text style={styles.catAndGNTitle}>{product.generic_name}</Text>
         </Text>
       </View>,
       <Text key="title" style={styles.title}>{product.title}</Text>,
-      <Text key="genericName" style={styles.genericName}>{product.generic_name}</Text>,
       <Text key="dosageForm" style={styles.dosageForm}>{product.dosage_form}</Text>,
-      <Section key="manufacturer" label="Manufacturer" content={product.manufacturer_info.name} />,
-      <Section key="origin" label="Origin" content={getCountryWithFlag(product.origin)} />,
       <Text key="pricesTitle" style={styles.priceSectionTitle}>Prices</Text>,
       <FlatList
         key="prices"
@@ -75,13 +76,16 @@ const ProductDetails = ({route}:{route:any}) => {
           <View style={styles.priceContainer}>
             <Text style={styles.priceText}>{item.option_title} ({item.package_size}) - {item.price}</Text>
             <Text style={item.if_available ? styles.available : styles.notAvailable}>
-              {item.if_available ? 'Available' : 'Not Available'}
+              {item.if_available ? '[Available]' : '[Not Available]'}
             </Text>
           </View>
+          
         )}
         keyExtractor={(item, index) => index.toString()}
         style={styles.allPricesContainer}
       />,
+      <Section key="manufacturer" label="Manufacturer" content={product.manufacturer_info.name} />,
+      <Section key="origin" label="Origin" content={getCountryWithFlag(product.origin)} />,
       <Section key="dosage" label="Dosage" content={product.dosing_information} isList />,
       <Section key="sideEffects" label="Side Effects" content={product.side_effects} isList />,
       <Section key="indications" label="Indications" content={product.indications} isList />,
@@ -115,7 +119,7 @@ const ProductDetails = ({route}:{route:any}) => {
           /> }
           
         <TouchableOpacity onPress={()=>{navigation.navigate('ResponsiblePersons',{toBeExpandedDivisionId:product.divisionId, toBeExpandedDivisionTitle:product.divisionTitle})}} key="orderButton" style={styles.orderButton}>
-          <Text style={styles.buttonText}>Click to Order</Text>
+          <Text style={styles.orderButtonText}>Click to Order</Text>
         </TouchableOpacity>
       </View>
     );
@@ -156,23 +160,24 @@ const styles = StyleSheet.create({
     elevation: 5, 
 
   },
-  categoryContainer:{
-    marginBottom:5
+  categoryAndGenericNameContainer:{
+    gap:2
   },
-  categoryLabel:{
+  catAndGNLabel:{
     fontWeight: '500',
     color: TEXT_COLOR,
-    fontSize: 14.5,
+    fontSize: 18,
   },
-  categoryTitle:{
+  catAndGNTitle:{
     fontWeight: '700',
     color: CLICKABLE_TEXT_COLOR,
-    fontSize: 14.5
+    fontSize: 19
   },
   title: { 
-    fontSize: 28, 
-    fontWeight: '500', 
+    fontSize: 34, 
+    fontWeight: '900', 
     color: CLICKABLE_TEXT_COLOR,
+    paddingVertical:5
   },
   genericName: { 
     fontSize: 15, 
@@ -182,29 +187,38 @@ const styles = StyleSheet.create({
   },
   priceSectionTitle: { 
     fontWeight: '600',
-    marginBottom: 5,
-    fontSize:21,
-    color: CLICKABLE_TEXT_COLOR
-  },
-  dosageForm: { 
-    marginBottom: 10,
-    color: TEXT_COLOR_2,
-    fontWeight:'500',
-    fontSize:16 
+    fontSize:25,
+    color: CARD_BACKGROUND_COLOR,
+    backgroundColor: BUTTON_COLOR,
+    paddingHorizontal:10,
+    paddingVertical: 5,
+    borderRadius: 5,
+    borderBottomLeftRadius:0,
+    borderBottomRightRadius:0
   },
   allPricesContainer:{
     marginBottom: 20,
+    paddingVertical:5,
+    paddingHorizontal:5,
+    borderWidth:1,
+    borderColor: BUTTON_COLOR,
+    borderRadius: 5,
+    borderTopRightRadius:0,
+    borderTopLeftRadius:0,
   },
   priceContainer: { 
+    display:'flex',
+    flexWrap:'wrap',
     flexDirection: 'row', 
-    justifyContent: 'space-between' 
+    justifyContent: 'space-between',
+    alignItems:'center',
+    paddingVertical:2
 
   },
   priceText: { 
-    fontSize: 16,
+    fontSize: 18,
     color: TEXT_COLOR_2,
-    marginLeft:15,
-    fontWeight:'500'
+    fontWeight:'600'
   },
   available: { 
     color: TEXT_AVAILABLE_COLOR,
@@ -216,9 +230,15 @@ const styles = StyleSheet.create({
     fontSize:14,
     fontWeight:'500'
   },
+  dosageForm: { 
+    marginBottom: 10,
+    color: TEXT_COLOR_2,
+    fontWeight:'500',
+    fontSize:18 
+  },
   orderButton: {
     position:'absolute',
-    left:'58%',
+    right:'2%',
     bottom:'2%',
     backgroundColor: BUTTON_COLOR,
     borderRadius: 35,
@@ -227,25 +247,25 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 4 },
     shadowOpacity: 0.4,
     elevation: 5,
-    opacity:0.9
+    opacity:0.95
   },
-  buttonText: { 
+  orderButtonText: { 
     color: CARD_BACKGROUND_COLOR,
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: '600' 
-
   },
   bottomButtons: { 
     flexDirection: 'row', 
     justifyContent: 'space-between', 
-    marginVertical: 20 
+    marginVertical: 20,
+    gap:4
   },
   bottomButton: { 
+    height:60, 
     flex: 1,
     justifyContent:'center',
     alignItems:'center', 
-    marginHorizontal: 5, 
-    paddingVertical: 15,
+    paddingVertical: 5,
     paddingHorizontal: 5, 
     borderRadius: 35, 
     borderColor: BUTTON_COLOR,
@@ -261,9 +281,11 @@ const styles = StyleSheet.create({
     elevation: 5,  
   },
   bottomButtonText:{
-    fontSize: 12,
+    fontSize: 18,
     fontWeight: '600',
-    color:BUTTON_COLOR
+    color:BUTTON_COLOR,
+    textAlign:'center',
+    textAlignVertical:'center'
   },
   knowMoreAboutText:{
     fontSize: 20,

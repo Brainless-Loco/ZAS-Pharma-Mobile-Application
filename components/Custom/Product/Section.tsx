@@ -1,4 +1,4 @@
-import { CLICKABLE_TEXT_COLOR, TEXT_COLOR_2 } from '@/components/ui/CustomColor';
+import { CARD_BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR, NESTED_CARD_COLOR, TEXT_COLOR_2 } from '@/components/ui/CustomColor';
 import React from 'react';
 import { View, Text,  StyleSheet } from 'react-native';
 
@@ -6,8 +6,11 @@ const Section: React.FC<{ label: string; content: string | string[]; isList?: bo
     <View style={styles.section}>
         <Text style={styles.label}>{label}</Text>
         {isList && Array.isArray(content)
-            ? content.map((item: string, index: number) => <Text key={index} style={styles.text}>{item}</Text>)
-            : <Text style={styles.text}>{content}</Text>}
+            ? content.map((item: string, index: number) => <Text key={index} style={[styles.content, index!=content.length-1 && styles.conentWithNoBorderRadius]}>
+                {/* <FontAwesome6 name="hand-point-right" size={12} color="black" />  */}
+                {item}
+            </Text>)
+            : <Text style={[styles.content]}>{content}</Text>}
         
     </View>
 );
@@ -17,19 +20,36 @@ export default Section;
 
 const styles = StyleSheet.create({
     section: {
-        marginBottom: 15
+        marginBottom: 15,
     },
     label: {
         fontWeight: '600',
-        marginBottom: 5,
-        fontSize: 21,
-        color: CLICKABLE_TEXT_COLOR
+        // marginBottom: 5,
+        fontSize: 25,
+        color: CLICKABLE_TEXT_COLOR,
+        backgroundColor: CARD_BACKGROUND_COLOR,
+        paddingHorizontal:10,
+        paddingVertical: 5,
+        borderRadius: 5,
+        borderBottomLeftRadius:0,
+        borderBottomRightRadius:0
     },
-    text: {
-        fontSize: 14,
+    content: {
+        fontSize: 18,
         fontWeight:'500',
         color: TEXT_COLOR_2,
-        marginBottom: 5,
-        marginLeft: 20
+        paddingLeft: 20,
+        paddingRight:5,
+        borderWidth:1,
+        borderColor: CARD_BACKGROUND_COLOR,
+        paddingVertical:5,
+        borderRadius: 5,
+        borderTopRightRadius:0,
+        borderTopLeftRadius:0
     },
+    conentWithNoBorderRadius:{
+        borderBottomRightRadius:0,
+        borderBottomLeftRadius:0,
+        borderBottomWidth:0
+    }
 });

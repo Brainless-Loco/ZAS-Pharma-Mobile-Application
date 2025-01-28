@@ -6,6 +6,7 @@ import SingleActivity from '@/components/Custom/Activity/SingleActivity';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/utils/firebase';
 import { useIsFocused } from '@react-navigation/native';
+import SignleActivity2 from '@/components/Custom/Activity/SignleActivity2';
 
 export default function Activity() {
 
@@ -39,10 +40,17 @@ export default function Activity() {
   return (
     <ScrollView style={styles.container}>
         <SubHeader text={"For more details, tap on the social media icon."}/>
-        {
+        {/* {
           activities.length > 0 && activities.map(
                 (activity, index) =>
                       <SingleActivity key={index} activity={activity} />)
+        } */}
+        {
+          activities.length>0 && 
+            activities.map(
+              (activity, index) =>
+                  <SignleActivity2 activity={activity} key={index}/> 
+          )
         }
         {!loading && activities.length === 0 && <Text>No activities found.</Text>}
         {loading && <ActivityIndicator style={styles.loadingState} size={50} color={CLICKABLE_TEXT_COLOR} />}

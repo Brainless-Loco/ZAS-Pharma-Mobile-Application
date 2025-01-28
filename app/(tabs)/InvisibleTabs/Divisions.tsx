@@ -20,7 +20,7 @@ export default function Divisions() {
           id: doc.id,
           ...doc.data(), // Spread the document fields
         }));
-        setDivisions(divisionsData as any);
+        setDivisions([...divisionsData].sort((a:any, b:any) => a.title.localeCompare(b.title)) as any);
         setLoading(false)
       } catch (err) {
         console.error('Error fetching divisions:', err);

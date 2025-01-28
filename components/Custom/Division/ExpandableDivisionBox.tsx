@@ -24,7 +24,7 @@ export default function ExpandableDivisionBox(
           id: doc.id,
           ...doc.data(),
         }));
-        setProducts(productList as any);
+        setProducts([...productList].sort((a:any, b:any) => a.title.localeCompare(b.title)) as any);
       } catch (error) {
         console.error('Error fetching products:', error);
       } finally {
@@ -52,6 +52,7 @@ export default function ExpandableDivisionBox(
           !loading && isExpanded && products.length>0 &&
               products.map((product, index) => (
                   <SingleProduct
+                    isForDoseCalculation={false}
                     isSearchItem={false} 
                     key={index}
                     product={product}

@@ -202,7 +202,7 @@ export default function RootLayout() {
 
 const styles = StyleSheet.create({
   headerTitleStyle: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
     color: TEXT_COLOR,
   },

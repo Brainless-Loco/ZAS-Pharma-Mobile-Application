@@ -174,10 +174,18 @@ const styles = StyleSheet.create({
     fontSize: 19
   },
   title: { 
-    fontSize: 34, 
+    fontSize: 35, 
     fontWeight: '900', 
     color: CLICKABLE_TEXT_COLOR,
-    paddingVertical:5
+    paddingVertical:5,
+    textShadowColor: TEXT_COLOR,
+    textShadowOffset: {
+      width: 1,
+      height: 1,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 5,
+    elevation: 5,
   },
   genericName: { 
     fontSize: 15, 
@@ -202,9 +210,18 @@ const styles = StyleSheet.create({
     paddingHorizontal:5,
     borderWidth:1,
     borderColor: BUTTON_COLOR,
+    backgroundColor:BACKGROUND_COLOR,
     borderRadius: 5,
     borderTopRightRadius:0,
     borderTopLeftRadius:0,
+    shadowColor:"#000000",
+    shadowOffset: {
+      width: 3,
+      height: 5,
+    },
+    shadowOpacity: 0.8,
+    shadowRadius: 5,
+    elevation: 5,
   },
   priceContainer: { 
     display:'flex',

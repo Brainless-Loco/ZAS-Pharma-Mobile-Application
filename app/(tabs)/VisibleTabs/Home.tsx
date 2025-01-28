@@ -36,7 +36,7 @@ export default function Home() {
       <TouchableOpacity style={styles.searchButton} onPress={() => {
           navigation.navigate('Search' as never)
         }}>
-        <Ionicons name="search" size={25} color={BACKGROUND_COLOR} />
+        <Ionicons name="search" size={30} color={BACKGROUND_COLOR} />
       </TouchableOpacity>
 
       {/* Logo */}
@@ -70,9 +70,9 @@ const styles = StyleSheet.create({
     backgroundColor: BACKGROUND_COLOR
   },
   searchButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 60,
+    height: 60,
+    borderRadius: 35,
     backgroundColor: BUTTON_COLOR,
     justifyContent: 'center',
     alignItems: 'center',
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: '100%',
-    height: 65,
+    height: 75,
     resizeMode: 'contain',
     marginBottom: 40,
   },
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     backgroundColor: BUTTON_COLOR,
-    width: '65%',
+    width: '75%',
     paddingVertical: 15,
     borderRadius: 40,
     marginVertical: 8,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: BACKGROUND_COLOR,
-    fontSize: 14,
+    fontSize: 18,
     fontWeight:'600',
     textAlign: 'center',
   },
@@ -118,8 +118,8 @@ const styles = StyleSheet.create({
     width:'100%'
   },
   adText: {
-    fontSize: 14,
-    marginBottom: 40,
+    fontSize: 16,
+    marginBottom: 25,
     color: TEXT_COLOR,
     fontWeight:'800',
   },
@@ -137,6 +137,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 13,
     elevation: 10,
-    
   },
 });

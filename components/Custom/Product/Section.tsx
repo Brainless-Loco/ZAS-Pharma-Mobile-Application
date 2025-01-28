@@ -1,4 +1,4 @@
-import { CARD_BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR, NESTED_CARD_COLOR, TEXT_COLOR_2 } from '@/components/ui/CustomColor';
+import { BACKGROUND_COLOR, CARD_BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR, NESTED_CARD_COLOR, TEXT_COLOR_2 } from '@/components/ui/CustomColor';
 import React from 'react';
 import { View, Text,  StyleSheet } from 'react-native';
 
@@ -21,6 +21,15 @@ export default Section;
 const styles = StyleSheet.create({
     section: {
         marginBottom: 15,
+        backgroundColor: NESTED_CARD_COLOR,
+        shadowColor:"#000000",
+        shadowOffset: {
+            width: 3,
+            height: 5,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        elevation: 2,
     },
     label: {
         fontWeight: '600',

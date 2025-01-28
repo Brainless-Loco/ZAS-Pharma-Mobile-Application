@@ -1,6 +1,6 @@
 import { BACKGROUND_COLOR, BUTTON_COLOR, CARD_BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR, TEXT_COLOR } from '@/components/ui/CustomColor';
 import React, { useEffect, useState } from 'react'
-import { View, TextInput, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, Text  } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, Text, Pressable } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ExpandableCategoryBox from '@/components/Custom/Division/ExpandableDivisionBox';
 import SingleProduct from '@/components/Custom/Product/SingleProduct';
@@ -45,7 +45,7 @@ const dummyCategoriesData = [
   },
 ];
 
-export default function Search({}) {
+export default function Search({ }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMedicineSearch, setIsMedicineSearch] = useState(true);
   const [medicines, setMedicines] = useState([]);
@@ -61,8 +61,8 @@ export default function Search({}) {
     setIsMedicineSearch(!isMedicineSearch);
   };
 
-  
-  const fetchMedicines = async ()=>{
+
+  const fetchMedicines = async () => {
     setLoading(true);
     const productsRef = collection(db, `Products`);
     try {
@@ -79,14 +79,14 @@ export default function Search({}) {
     }
   }
 
-  const fetchDivisions = async () =>{
+  const fetchDivisions = async () => {
     setLoading(true);
     const divisionsRef = collection(db, 'Divisions');
     try {
       const divisionData = await getDocs(divisionsRef);
       const divisionList = divisionData.docs.map((doc) => ({
         id: doc.id,
-       ...doc.data(),
+        ...doc.data(),
       }));
       setDivisions(divisionList as any);
     } catch (error) {
@@ -97,17 +97,17 @@ export default function Search({}) {
   }
 
   useEffect(() => {
-    if(isFocused){
+    if (isFocused) {
       fetchMedicines()
       fetchDivisions()
     }
   }, [isFocused])
 
-  useEffect(()=>{
-    if(searchQuery){
+  useEffect(() => {
+    if (searchQuery) {
       const filteredMedicines = medicines.filter((medicine: any) => {
         const query = searchQuery.toLowerCase();
-      
+
         return (
           medicine.title?.toLowerCase().includes(query) ||
           medicine.generic_name?.toLowerCase().includes(query) ||
@@ -116,14 +116,14 @@ export default function Search({}) {
           medicine.side_effects?.some((effect: string) => effect.toLowerCase().includes(query)) ||
           medicine.indications?.some((indication: string) => indication.toLowerCase().includes(query)) ||
           medicine.dosing_information?.some((info: string) => info.toLowerCase().includes(query)) ||
-          medicine.available_strength?.some((strength: any) => 
-            strength.option_title?.toLowerCase().includes(query) || 
-            strength.package_size?.toLowerCase().includes(query) || 
-            strength.price?.toLowerCase().includes(query) || 
+          medicine.available_strength?.some((strength: any) =>
+            strength.option_title?.toLowerCase().includes(query) ||
+            strength.package_size?.toLowerCase().includes(query) ||
+            strength.price?.toLowerCase().includes(query) ||
             strength.dosage_form?.toLowerCase().includes(query)
           )
         );
-      });      
+      });
       setSearchedMedicines(filteredMedicines);
       const filteredDivisions = divisions.filter((division: any) => {
         const query = searchQuery.toLowerCase();
@@ -131,29 +131,47 @@ export default function Search({}) {
           division.title?.toLowerCase().includes(query) ||
           division.description?.toLowerCase().includes(query)
         );
-      });      
+      });
       setSearchedDivisions(filteredDivisions);
     }
-    else{
-      
-    }
-  },[searchQuery])
+    else {
 
-  
+    }
+  }, [searchQuery])
+
+
 
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
-        <Ionicons name="search" size={22} color="#666" style={styles.searchIcon} />
+        <Ionicons name="search" size={25} color="#666" style={styles.searchIcon} />
         <TextInput
+          multiline={false}
           placeholder={isMedicineSearch ? "Search Medicines..." : "Search Divisions..."}
           value={searchQuery}
           style={styles.searchInput}
-          onChangeText={(text:string)=>{setSearchQuery(text)}}
+          onChangeText={(text: string) => { setSearchQuery(text) }}
         />
-        <TouchableOpacity onPress={toggleSearchType} style={styles.swapButton}>
+        {/* <TouchableOpacity onPress={toggleSearchType} style={styles.swapButton}>
           <Ionicons name="swap-horizontal" size={20} color="#fff" />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+      </View>
+      <View style={styles.tabGroup}>
+        {/* Medicines Tab */}
+        <Pressable onPress={() => setIsMedicineSearch(true)}
+          style={[ styles.tab, styles.leftTab, isMedicineSearch && styles.activeTab, isMedicineSearch && styles.activeTabLeftBorder ]}>
+          <Text style={[ styles.tabText, isMedicineSearch && styles.activeTabText,]}>
+            Medicines
+          </Text>
+        </Pressable>
+
+        {/* Divisions Tab */}
+        <Pressable onPress={() => setIsMedicineSearch(false)}
+          style={[styles.tab, styles.rightTab, !isMedicineSearch && styles.activeTab, !isMedicineSearch && styles.activeTabRightBorder]}>
+          <Text style={[styles.tabText, !isMedicineSearch && styles.activeTabText]}>
+            Divisions
+          </Text>
+        </Pressable>
       </View>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.searchItemsContainer}>
         {loading &&
@@ -162,50 +180,50 @@ export default function Search({}) {
             <Text style={styles.loadingText}>Searching...</Text>
           </View>
         }
-        {!loading && !searchQuery && !isMedicineSearch && divisions.length>0 &&
-              divisions.map((division:{title:string, id:string}, index) => (
-                <ExpandableCategoryBox 
-                  key={index}
-                  title={division.title}
-                  id={division.id}
-                />
-              ))
-            }
+        {!loading && !searchQuery && !isMedicineSearch && divisions.length > 0 &&
+          divisions.map((division: { title: string, id: string }, index) => (
+            <ExpandableCategoryBox
+              key={index}
+              title={division.title}
+              id={division.id}
+            />
+          ))
+        }
 
-          {/* For Searching.... */}
-          {
-              searchQuery && !isMedicineSearch && searchedDivisions.length>0 && 
-              searchedDivisions.map((division:{title:string, id:string}, index) => (
-                  <ExpandableCategoryBox 
-                    key={index}
-                    title={division.title}
-                    id={division.id}
-                  />
-                ))
-            }
-            {!loading && !searchQuery && isMedicineSearch && medicines.length>0 && 
-                medicines.map((product, index) => (
-                    <SingleProduct
-                      isSearchItem={true} 
-                      key={index}
-                      product={product}
-                      isForDoseCalculation={false}
-                    />
-                ))
-            }
-            {
-              searchQuery && isMedicineSearch && searchedMedicines.length>0 && 
-                searchedMedicines.map((product, index) => (
-                  <SingleProduct
-                    isSearchItem={true} 
-                    key={index}
-                    product={product}
-                    isForDoseCalculation={false}
-                  />
-              ))
-            }
+        {/* For Searching.... */}
+        {
+          searchQuery && !isMedicineSearch && searchedDivisions.length > 0 &&
+          searchedDivisions.map((division: { title: string, id: string }, index) => (
+            <ExpandableCategoryBox
+              key={index}
+              title={division.title}
+              id={division.id}
+            />
+          ))
+        }
+        {!loading && !searchQuery && isMedicineSearch && medicines.length > 0 &&
+          medicines.map((product, index) => (
+            <SingleProduct
+              isSearchItem={true}
+              key={index}
+              product={product}
+              isForDoseCalculation={false}
+            />
+          ))
+        }
+        {
+          searchQuery && isMedicineSearch && searchedMedicines.length > 0 &&
+          searchedMedicines.map((product, index) => (
+            <SingleProduct
+              isSearchItem={true}
+              key={index}
+              product={product}
+              isForDoseCalculation={false}
+            />
+          ))
+        }
 
-            
+
       </ScrollView>
     </View>
   )
@@ -216,7 +234,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: BACKGROUND_COLOR,
     paddingHorizontal: 5,
-    paddingVertical:0
+    paddingVertical: 0
   },
   searchContainer: {
     flexDirection: 'row',
@@ -225,7 +243,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     paddingHorizontal: 10,
     paddingVertical: 7,
-    shadowColor:"#000000",
+    shadowColor: "#000000",
     shadowOffset: {
       width: 3,
       height: 5,
@@ -234,16 +252,60 @@ const styles = StyleSheet.create({
     shadowRadius: 13,
     elevation: 10,
     margin: 10,
-    marginBottom:10,
+    marginBottom: 10,
   },
   searchIcon: {
     marginRight: 10,
-    opacity:0.3
+    opacity: 0.3
   },
   searchInput: {
     flex: 1,
     fontSize: 15,
     color: TEXT_COLOR,
+    maxHeight:50,
+  },
+  tabGroup: {
+    flexDirection: 'row',
+    borderRadius: 25,
+    overflow: 'hidden',
+    backgroundColor: CARD_BACKGROUND_COLOR,
+    width:'80%',
+    marginHorizontal:'auto',
+    marginBottom: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 3,
+      height: 5,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 13,
+    elevation: 10,
+  },
+  tab: {
+    flex: 1,
+    paddingVertical: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: CARD_BACKGROUND_COLOR,
+  },
+  activeTab: {
+    backgroundColor: BUTTON_COLOR,
+  },
+  leftTab: {
+    borderTopLeftRadius: 25,
+    borderBottomLeftRadius: 25,
+  },
+  rightTab: {
+    borderTopRightRadius: 25,
+    borderBottomRightRadius: 25,
+  },
+  tabText: {
+    fontSize: 17,
+    color: TEXT_COLOR,
+  },
+  activeTabText: {
+    color: CARD_BACKGROUND_COLOR,
+    fontWeight: 'bold',
   },
   swapButton: {
     width: 32,
@@ -257,7 +319,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop:'50%'
+    marginTop: '50%'
   },
   loadingText: {
     marginTop: 10,
@@ -266,5 +328,13 @@ const styles = StyleSheet.create({
   },
   searchItemsContainer: {
     marginHorizontal: 5
-  }
+  },
+  activeTabLeftBorder:{
+    borderTopRightRadius:25,
+    borderBottomRightRadius:25,
+  },
+  activeTabRightBorder:{
+    borderTopLeftRadius:25,
+    borderBottomLeftRadius:25,
+  },
 });

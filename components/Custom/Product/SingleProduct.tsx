@@ -26,7 +26,7 @@ export default function SingleProduct({ product, isSearchItem=false, isForDoseCa
         <Text style={styles.genericName}>{product.generic_name}</Text>
         <Pressable style={styles.doseCalculatorNavigationBtn} onPress={()=>{navigation.navigate('Dose Calculator For A Product',{product})}}>
           <Text>
-          <MaterialCommunityIcons name="calculator-variant" size={20} color={BUTTON_COLOR} /></Text>
+          <MaterialCommunityIcons name="calculator-variant" size={25} color={BUTTON_COLOR} /></Text>
           <Text style={styles.doseCalculatorNavigationBtnText}>Open Dose Calculator</Text>
         </Pressable>
     </View>
@@ -79,28 +79,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   doseCalculatorNavigationBtnText:{
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: '400',
     marginLeft: 5,
     color: BUTTON_COLOR
   },
   productInfo: {
-    flex: 2,
+    flex: 3,
     justifyContent: 'center',
   },
   title: {
-    fontSize: 18,
+    fontSize: 22,
     color:CLICKABLE_TEXT_COLOR,
     fontWeight: '500',
   },
   genericName: {
-    fontSize: 14,
+    fontSize: 17,
     color: TEXT_COLOR_2,
-    marginVertical: 4,
+    marginVertical: 3,
     fontWeight:'400'
   },
   strength: {
-    fontSize: 14,
+    fontSize: 16,
     color: CLICKABLE_TEXT_COLOR,
     fontWeight:'500'
   },
@@ -110,7 +110,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   availabilityText: {
-    fontSize:12,
-    fontWeight:'500'
+    fontSize:15,
+    fontWeight:'500',
+    textAlign:'center',
   }
 });

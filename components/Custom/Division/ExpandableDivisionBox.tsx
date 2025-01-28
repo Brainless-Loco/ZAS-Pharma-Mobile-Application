@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   },
   divisionTitle: {
     color: CARD_HEADER_COLOR,
-    fontSize: 22,
+    fontSize: 25,
     fontWeight: '500',
   },
   loadingContainer: {

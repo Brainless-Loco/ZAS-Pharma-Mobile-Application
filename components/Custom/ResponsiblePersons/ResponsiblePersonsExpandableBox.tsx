@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   },
   groupTitle: {
     color: CARD_HEADER_COLOR,
-    fontSize: 22,
+    fontSize: 25,
     fontWeight: '500',
   },
   personContainer: {

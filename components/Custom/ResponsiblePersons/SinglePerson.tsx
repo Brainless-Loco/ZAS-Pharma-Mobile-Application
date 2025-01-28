@@ -45,12 +45,12 @@ const styles = StyleSheet.create({
   },
   personName: {
     color: BUTTON_COLOR,
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '500',
   },
   rankAndCompany: {
     color: TEXT_COLOR_2,
-    fontSize: 13,
+    fontSize: 16,
     fontWeight:'300',
     marginVertical: 4,
   },
@@ -66,13 +66,13 @@ const styles = StyleSheet.create({
   emailText: {
     marginLeft: 8,
     color: BUTTON_COLOR,
-    fontSize: 14,
+    fontSize: 16,
     fontWeight:'500',
   },
   phoneText: {
     marginLeft: 8,
     color: BUTTON_COLOR,
-    fontSize: 14,
+    fontSize: 16,
     fontWeight:'500',
   },
 });

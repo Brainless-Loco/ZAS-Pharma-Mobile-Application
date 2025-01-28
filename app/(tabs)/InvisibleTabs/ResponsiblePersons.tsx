@@ -64,7 +64,7 @@ export default function ResponsiblePersons({route}:{route:any}) {
             const divisionsData = querySnapshot.docs.map(doc => ({
               id: doc.id,
               ...doc.data(), // Spread the document fields
-            }));
+            })).sort((a:any,b:any)=>a.title.localeCompare(b.title));
             setDivisions(divisionsData as any);
             setLoading(false)
           } catch (err) {

@@ -171,6 +171,7 @@ export default function Feedback() {
         selectedValue={deliverySatisfaction}
         onSelect={setDeliverySatisfaction}
       />
+      <View style={{marginTop:20}}></View>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>
           Please provide any suggestions to help us improve our products and services:
@@ -233,16 +234,16 @@ const styles = StyleSheet.create({
     backgroundColor: BACKGROUND_COLOR
   },
   header: {
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: '800',
     color: TEXT_COLOR,
     marginBottom: 10,
   },
   inputContainer: {
-    marginBottom: 0,
+    marginTop:0
   },
   label: {
-    fontSize: 13.5,
+    fontSize: 18,
     lineHeight: 25,
     fontWeight: '500',
     color: TEXT_COLOR,
@@ -258,7 +259,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 10,
     marginBottom: 10,
-    fontSize: 13,
+    fontSize: 18,
     fontWeight: '400',
     color: TEXT_COLOR,
     shadowColor: "#000000",
@@ -276,10 +277,9 @@ const styles = StyleSheet.create({
     maxHeight: 200
   },
   submitButton: {
-    width: '50%',
+    width: '65%',
     marginHorizontal: 'auto',
     backgroundColor: BUTTON_COLOR,
-    paddingHorizontal: 15,
     paddingVertical: 13,
     borderRadius: 30,
     alignItems: 'center',
@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
   },
   submitButtonText: {
     color: CARD_BACKGROUND_COLOR,
-    fontSize: 18,
+    fontSize: 25,
     fontWeight: '600',
   },
 });

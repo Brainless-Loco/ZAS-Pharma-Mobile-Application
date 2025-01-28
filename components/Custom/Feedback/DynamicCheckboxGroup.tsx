@@ -43,30 +43,31 @@ export default function DynamicCheckboxGroup({
 
 const styles = StyleSheet.create({
   groupContainer: {
-    marginVertical: 7,
+    marginVertical: 10,
   },
   label: {
-    fontSize: 13,
+    fontSize: 18,
     fontWeight: '500',
-    marginBottom: 10,
+    marginBottom: 0.5,
     color: TEXT_COLOR
   },
   required: {
     color: 'red',
   },
   optionsContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     flexWrap: 'wrap',
+    paddingLeft: 10
   },
   option: {
     flexDirection: 'row',
     alignItems: 'center',
     marginRight: 20,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   optionText: {
     marginLeft: 5,
-    fontSize: 13,
+    fontSize: 18,
     fontWeight:'500'
   },
 });

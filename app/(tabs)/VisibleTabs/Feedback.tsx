@@ -44,7 +44,8 @@ export default function Feedback() {
       deliverySatisfaction,
       suggestions,
       comments,
-      device_info:info
+      device_info:info,
+      date: new Date()
     };
 
     try {
@@ -70,6 +71,7 @@ export default function Feedback() {
     setSuggestions('');
     setComments('');
   }
+
 
   useEffect(()=>{
     if(isFocused) {

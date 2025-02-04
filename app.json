@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ZAS-Pharma-Application",
-    "slug": "ZAS-Pharma-Application",
+    "name": "ZAS-MediGuide-Application",
+    "slug": "ZAS-MediGuide-Application",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -13,22 +13,22 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/App_Logo_and_Name-01-removebg-preview.png",
         "backgroundColor": "#DAE4F5"
       },
-      "package": "com.brainless_loco.ZASPharmaApplication"
+      "package": "com.brainless_loco.ZASMediGuideApp"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/App_Logo_and_Name-01-removebg-preview.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/zas-group-logo.png",
+          "image": "./assets/images/App_Logo_and_Name-01-removebg-previewcls.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#DAE4F5"

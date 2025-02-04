@@ -3,14 +3,17 @@ import { useEffect } from 'react';
 import { Appearance } from 'react-native';
 
 export default function Layout() {
-  useEffect(() => Appearance.setColorScheme('light'),
-  [])
+
+  useEffect(() => {
+    Appearance.setColorScheme('light');
+  }, []);
+
   return (
-    <Stack
-      screenOptions={{
-        headerShown:false
-      }}>
-      <Stack.Screen name="(tabs)" options={{}} />
-    </Stack>
+      <Stack
+        screenOptions={{
+          headerShown: false
+        }}>
+        <Stack.Screen name="(tabs)" options={{}} />
+      </Stack>
   );
 }

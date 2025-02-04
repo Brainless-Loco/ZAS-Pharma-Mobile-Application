@@ -240,6 +240,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: TEXT_COLOR,
     marginBottom: 10,
+    
   },
   inputContainer: {
     marginTop:0

@@ -21,6 +21,7 @@ export default function Feedback() {
   const [deliverySatisfaction, setDeliverySatisfaction] = useState('');
   const [suggestions, setSuggestions] = useState('');
   const [comments, setComments] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -28,9 +29,12 @@ export default function Feedback() {
 
   const isFocused = useIsFocused()
 
-  
 
   const handleSubmit = async () => {
+    if(!name || !contact || !email || !role || !productQuality || !serviceExperience ||  !productReliability || !deliverySatisfaction){
+      setErrorMessage("Please fill out the required information..")
+      return 
+    }
     setLoading(true)
     const info = await getDeviceInfo()
     const feedbackData = {
@@ -52,8 +56,10 @@ export default function Feedback() {
       await addDoc(collection(db, 'Feedbacks'), feedbackData);
       setSubmitted(true)
       initializeEverything()
+      setErrorMessage("")
     } catch (error) {
       console.error('Error adding feedback:', error);
+      setErrorMessage("Something went wrong..")
     }
     setLoading(false)
   };
@@ -76,9 +82,17 @@ export default function Feedback() {
   useEffect(()=>{
     if(isFocused) {
       initializeEverything()
+      setErrorMessage("")
       setSubmitted(false);
     }
   },[isFocused])
+
+
+  useEffect(()=>{
+    if(name || email || contact || role || productQuality || serviceExperience || productReliability || deliverySatisfaction || suggestions || comments){
+      setErrorMessage("")
+    }
+  },[name, email, contact, role, productQuality, serviceExperience, productReliability,deliverySatisfaction, suggestions, comments])
 
 
 
@@ -198,6 +212,7 @@ export default function Feedback() {
           multiline
         />
       </View>
+      {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
       <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
         <Text style={styles.submitButtonText}>Submit</Text>
       </TouchableOpacity>
@@ -278,6 +293,14 @@ const styles = StyleSheet.create({
     minHeight: 80, // Adjust for more space
     textAlignVertical: 'top', // Align text at the top
     maxHeight: 200
+  },
+  errorMessage:{
+    color:'red',
+    fontWeight:600,
+
+    fontSize: 17,
+    marginBottom: 10,
+    textAlign: 'center'
   },
   submitButton: {
     width: '65%',

@@ -57,11 +57,6 @@ export default function Search({ }) {
 
   const isFocused = useIsFocused()
 
-  const toggleSearchType = () => {
-    setIsMedicineSearch(!isMedicineSearch);
-  };
-
-
   const fetchMedicines = async () => {
     setLoading(true);
     const productsRef = collection(db, `Products`);
@@ -71,7 +66,7 @@ export default function Search({ }) {
         id: doc.id,
         ...doc.data(),
       }));
-      setMedicines(medicineList as any);
+      setMedicines([...medicineList].sort((a:any, b:any) => a.title.localeCompare(b.title)) as any);
     } catch (error) {
       console.error('Error fetching products:', error);
     } finally {
@@ -88,7 +83,7 @@ export default function Search({ }) {
         id: doc.id,
         ...doc.data(),
       }));
-      setDivisions(divisionList as any);
+      setDivisions([...divisionList].sort((a:any, b:any) => a.title.localeCompare(b.title)) as any);
     } catch (error) {
       console.error('Error fetching divisions:', error);
     } finally {

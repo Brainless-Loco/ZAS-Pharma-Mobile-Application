@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     title: {
-        fontSize: 15,
+        fontSize: 20,
         color: TEXT_COLOR,
         fontWeight: '700',
         marginBottom: 8,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         color: BUTTON_COLOR,
     },
     unit: {
-        fontSize: 18,
+        fontSize: 22,
         color: TEXT_COLOR,
         fontWeight: '600',
         marginLeft: 8,
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 12,
         marginTop: 50,
-        width: '50%',
+        width: '60%',
         alignItems: 'center',
         shadowColor: '#000',
         shadowOpacity: 0.2,
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: BUTTON_COLOR,
-        fontSize: 16,
-        fontWeight: '500',
+        fontSize: 20,
+        fontWeight: 600,
     },
 });

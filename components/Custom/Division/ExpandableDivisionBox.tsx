@@ -100,7 +100,8 @@ const styles = StyleSheet.create({
   divisionTitle: {
     color: CARD_HEADER_COLOR,
     fontSize: 25,
-    fontWeight: '500',
+    fontFamily:'serif',
+    fontWeight: 700,
   },
   loadingContainer: {
     flex: 1,
@@ -111,6 +112,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 16,
     color: CLICKABLE_TEXT_COLOR,
+    fontFamily:'serif',
   },
   productContainer: {
     marginTop: 20,

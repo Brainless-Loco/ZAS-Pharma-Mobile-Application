@@ -109,7 +109,8 @@ const styles = StyleSheet.create({
   buttonText: {
     color: BACKGROUND_COLOR,
     fontSize: 18,
-    fontWeight:'600',
+    fontFamily:'serif',
+    fontWeight: 700,
     textAlign: 'center',
   },
   advertisementContainer: {
@@ -119,6 +120,7 @@ const styles = StyleSheet.create({
   },
   adText: {
     fontSize: 16,
+    fontFamily:'serif',
     marginBottom: 25,
     color: TEXT_COLOR,
     fontWeight:'800',

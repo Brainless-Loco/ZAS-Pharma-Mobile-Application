@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 18,
-    fontWeight: '500',
+    fontFamily:'serif',
+    fontWeight:'bold',
     marginBottom: 0.5,
     color: TEXT_COLOR
   },
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
   optionText: {
     marginLeft: 5,
     fontSize: 18,
-    fontWeight:'500'
+    fontWeight:'bold',
+    fontFamily:'serif',
   },
 });

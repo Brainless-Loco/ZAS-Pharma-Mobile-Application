@@ -15,7 +15,8 @@ export default function GroupWiseExpandableBox({ company }: { company: any }) {
     <Pressable onPress={handleToggle} style={styles.boxContainer}>
       <View style={styles.TitleAndButtonContainer}>
         <View style={{ width: '85%' }}>
-          <Text style={{ color: CARD_HEADER_COLOR, fontSize: 23, fontWeight: '500' }}>
+          <Text style={{ color: CARD_HEADER_COLOR, fontSize: 23,
+        fontFamily:'serif', fontWeight: 700 }}>
             {company.groupTitle ?? company.groupTitle}
           </Text>
         </View>
@@ -45,7 +46,7 @@ export default function GroupWiseExpandableBox({ company }: { company: any }) {
               >
                 <View style={styles.linkContainer}>
                   <Ionicons name="globe-sharp" size={22} color={BUTTON_COLOR} style={styles.link} />
-                  <Text style={{ ...styles.link, fontSize: 16 }}>Visit Website</Text>
+                  <Text style={{ ...styles.link, fontSize: 16, fontFamily:'serif', }}>Visit Website</Text>
                 </View>
 
               </TouchableOpacity>
@@ -95,6 +96,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     textAlign: 'center',
+    fontFamily:'serif',
   },
   detailsBox: {
     marginTop: 10,
@@ -123,11 +125,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
-    fontWeight: '800',
-    color: TEXT_COLOR
+    fontWeight: 700,
+    color: TEXT_COLOR,
+    fontFamily:'serif',
   },
   slogan: {
     fontSize: 17,
+    fontFamily:'serif',
     lineHeight: 18,
     color: TEXT_COLOR,
     marginBottom: 3,

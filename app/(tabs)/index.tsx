@@ -46,7 +46,9 @@ export default function RootLayout() {
                 },
                 tabBarLabelStyle: {
                   fontSize: 9,
-                  fontWeight:'bold'
+                  fontWeight:'bold',
+                  fontFamily: 'sans-serif',
+                  lineHeight: 21
                 },
                 tabBarActiveTintColor: BUTTON_COLOR, // Active label color
                 tabBarInactiveTintColor: INACTIVE_TAB_LABEL_COLOR, // Inactive label color
@@ -205,12 +207,13 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     color: TEXT_COLOR,
+    fontFamily: 'sans-serif',
   },
   headerStyle:{
     backgroundColor: BACKGROUND_COLOR,
     elevation: 0,
     shadowOpacity: 0,
     borderBottomWidth: 0,
-    height:40
+    height:45
   }
 })

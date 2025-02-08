@@ -164,18 +164,21 @@ const styles = StyleSheet.create({
     gap:2
   },
   catAndGNLabel:{
-    fontWeight: '500',
+    fontWeight: 600,
     color: TEXT_COLOR,
     fontSize: 18,
+    fontFamily: 'serif',
   },
   catAndGNTitle:{
     fontWeight: '700',
     color: CLICKABLE_TEXT_COLOR,
-    fontSize: 19
+    fontSize: 19,
+    fontFamily: 'serif',
   },
   title: { 
     fontSize: 35, 
-    fontWeight: '900', 
+    fontWeight: 900, 
+    fontFamily: 'serif',
     color: CLICKABLE_TEXT_COLOR,
     paddingVertical:5,
     textShadowColor: TEXT_COLOR,
@@ -190,12 +193,14 @@ const styles = StyleSheet.create({
   genericName: { 
     fontSize: 15, 
     fontWeight: '500', 
+    fontFamily: 'serif',
     marginBottom: 5,
     color: TEXT_COLOR_2,
   },
   priceSectionTitle: { 
-    fontWeight: '600',
+    fontWeight: 700,
     fontSize:25,
+    fontFamily: 'serif',
     color: CARD_BACKGROUND_COLOR,
     backgroundColor: BUTTON_COLOR,
     paddingHorizontal:10,
@@ -234,24 +239,28 @@ const styles = StyleSheet.create({
   },
   priceText: { 
     fontSize: 18,
+    fontFamily: 'serif',
     color: TEXT_COLOR_2,
     fontWeight:'600'
   },
   available: { 
     color: TEXT_AVAILABLE_COLOR,
     fontSize:14,
-    fontWeight:'500'
+    fontWeight:'500',
+    fontFamily: 'serif',
   },
   notAvailable: { 
     color: TEXT_NOT_AVAILABLE_COLOR,
     fontSize:14,
-    fontWeight:'500'
+    fontWeight:'500',
+    fontFamily: 'serif',
   },
   dosageForm: { 
     marginBottom: 10,
     color: TEXT_COLOR_2,
     fontWeight:'500',
-    fontSize:18 
+    fontSize:18,
+    fontFamily: 'serif',
   },
   orderButton: {
     position:'absolute',
@@ -269,7 +278,8 @@ const styles = StyleSheet.create({
   orderButtonText: { 
     color: CARD_BACKGROUND_COLOR,
     fontSize: 18,
-    fontWeight: '600' 
+    fontWeight: 700,
+    fontFamily: 'serif',
   },
   bottomButtons: { 
     flexDirection: 'row', 
@@ -298,18 +308,25 @@ const styles = StyleSheet.create({
     elevation: 5,  
   },
   bottomButtonText:{
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 17,
+    fontWeight: 700,
+    fontFamily: 'serif',
     color:BUTTON_COLOR,
     textAlign:'center',
     textAlignVertical:'center'
   },
   knowMoreAboutText:{
     fontSize: 20,
-    fontWeight: '600',
+    fontFamily: 'serif',
+    fontWeight: 700,
     color: TEXT_COLOR_2,
     marginVertical:5,
-    textAlign:'center'
+    textAlign:'center',
+    borderWidth:1,
+    paddingVertical:5,
+    borderRightWidth:0,
+    borderLeftWidth:0,
+    borderColor: TEXT_COLOR_2
   }
 });
 

@@ -32,9 +32,10 @@ const styles = StyleSheet.create({
         // elevation: 2,
     },
     label: {
-        fontWeight: '600',
+        fontWeight: 700,
         // marginBottom: 5,
         fontSize: 25,
+        fontFamily:'serif',
         color: CLICKABLE_TEXT_COLOR,
         backgroundColor: CARD_BACKGROUND_COLOR,
         paddingHorizontal:10,
@@ -45,7 +46,8 @@ const styles = StyleSheet.create({
     },
     content: {
         fontSize: 18,
-        fontWeight:'500',
+        fontFamily:'serif',
+        fontWeight: 600,
         color: TEXT_COLOR_2,
         paddingLeft: 20,
         paddingRight:5,
@@ -56,7 +58,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderTopRightRadius:0,
         borderTopLeftRadius:0,
-        
+        lineHeight: 21
     },
     conentWithNoBorderRadius:{
         borderBottomRightRadius:0,

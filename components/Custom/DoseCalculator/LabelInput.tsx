@@ -30,7 +30,9 @@ const styles = StyleSheet.create({
 },
   label: { 
     fontSize: 18,
-    fontWeight:600, 
+    fontFamily:'serif',
+    fontWeight: 700, 
+    color: TEXT_COLOR,
     marginBottom: 5 
 },
   inputContainer: {
@@ -45,6 +47,7 @@ const styles = StyleSheet.create({
   input: { 
     width:'55%',
     fontSize: 16,
+    fontFamily:'serif',
     paddingHorizontal:10,
     fontWeight:500,
     color:TEXT_COLOR,
@@ -62,8 +65,9 @@ const styles = StyleSheet.create({
 },
   unit: { 
     fontSize: 16,
+    fontFamily:'serif',
     height: 50,
-    fontWeight:600,
+    fontWeight:700,
     marginLeft: 10,
     width:'35%',
     textAlign:'center',
@@ -86,7 +90,7 @@ const styles = StyleSheet.create({
     elevation: 5,
 },
   toggleButton: {
-    width:'50%',
+    width:'54.5%',
     height:'100%',
     paddingHorizontal: 15,
     backgroundColor: '#fff',
@@ -105,7 +109,9 @@ activeToggleText:{
   inActiveToggleText: { 
     color: BUTTON_COLOR,
     fontSize: 18,
-    fontWeight:600 
+    fontWeight: 700,
+    fontFamily:'serif',
+    fontFamily:'serif',
 },
   leftRadius: {
     borderTopLeftRadius:35,

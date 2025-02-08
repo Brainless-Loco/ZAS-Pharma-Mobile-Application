@@ -46,13 +46,15 @@ const styles = StyleSheet.create({
   personName: {
     color: BUTTON_COLOR,
     fontSize: 20,
-    fontWeight: '500',
+    fontWeight: 700,
+    fontFamily:'serif',
   },
   rankAndCompany: {
     color: TEXT_COLOR_2,
     fontSize: 16,
     fontWeight:'300',
     marginVertical: 4,
+    fontFamily:'serif',
   },
   contactRow: {
     flexDirection: 'column',
@@ -62,17 +64,21 @@ const styles = StyleSheet.create({
   contactItem: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginVertical:2,
+    // width:'100%'
   },
   emailText: {
     marginLeft: 8,
     color: BUTTON_COLOR,
     fontSize: 16,
     fontWeight:'500',
+    fontFamily:'serif',
   },
   phoneText: {
     marginLeft: 8,
     color: BUTTON_COLOR,
     fontSize: 16,
-    fontWeight:'500',
+    fontWeight: 700,
+    fontFamily:'serif',
   },
 });

@@ -122,7 +122,8 @@ const styles = StyleSheet.create({
   groupTitle: {
     color: CARD_HEADER_COLOR,
     fontSize: 25,
-    fontWeight: '500',
+    fontWeight: 700,
+    fontFamily:'serif',
   },
   personContainer: {
     marginTop: 20,
@@ -136,6 +137,7 @@ const styles = StyleSheet.create({
   loadingText: {
     marginTop: 10,
     fontSize: 16,
+    fontFamily:'serif',
     color: CLICKABLE_TEXT_COLOR,
   },
 });

@@ -1,4 +1,4 @@
-import { BUTTON_COLOR, TEXT_COLOR } from '@/components/ui/CustomColor';
+import { BUTTON_COLOR, TEXT_COLOR, TEXT_COLOR_2 } from '@/components/ui/CustomColor';
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
@@ -23,8 +23,9 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 20,
-        fontWeight: 600,
-        color: TEXT_COLOR,
+        fontFamily:'serif',
+        fontWeight: 700,
+        color: TEXT_COLOR_2,
         marginBottom: 5
     },
     toggleContainer: {
@@ -59,7 +60,8 @@ const styles = StyleSheet.create({
     },
     toggleText: {
         fontSize: 20,
-        fontWeight: 600
+        fontFamily:'serif',
+        fontWeight: 700
     },
     activeToggleText: {
         color: 'white',

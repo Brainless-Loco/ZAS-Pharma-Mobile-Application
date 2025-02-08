@@ -244,14 +244,16 @@ const styles = StyleSheet.create({
     color: CLICKABLE_TEXT_COLOR,
     fontSize: 25,
     fontWeight:'800',
-    marginTop:10
+    marginTop:10,
+    fontFamily:'serif',
   },
   container: {
     paddingHorizontal: 15,
     backgroundColor: BACKGROUND_COLOR
   },
   header: {
-    fontSize: 18,
+    fontSize: 20,
+    fontFamily:'serif',
     fontWeight: '800',
     color: TEXT_COLOR,
     marginBottom: 10,
@@ -262,8 +264,9 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 18,
+    fontFamily:'serif',
     lineHeight: 25,
-    fontWeight: '500',
+    fontWeight: 700,
     color: TEXT_COLOR,
     marginBottom: 5,
     marginLeft: 4
@@ -278,6 +281,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 10,
     fontSize: 18,
+    fontFamily:'serif',
     fontWeight: '400',
     color: TEXT_COLOR,
     shadowColor: "#000000",
@@ -297,7 +301,7 @@ const styles = StyleSheet.create({
   errorMessage:{
     color:'red',
     fontWeight:600,
-
+    fontFamily:'serif',
     fontSize: 17,
     marginBottom: 10,
     textAlign: 'center'
@@ -323,6 +327,7 @@ const styles = StyleSheet.create({
   submitButtonText: {
     color: CARD_BACKGROUND_COLOR,
     fontSize: 25,
-    fontWeight: '600',
+    fontWeight: 700,
+    fontFamily:'serif',
   },
 });

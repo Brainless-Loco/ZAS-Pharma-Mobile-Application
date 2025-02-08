@@ -258,6 +258,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: TEXT_COLOR,
     maxHeight:50,
+    fontFamily:'serif',
   },
   tabGroup: {
     flexDirection: 'row',
@@ -297,6 +298,7 @@ const styles = StyleSheet.create({
   tabText: {
     fontSize: 17,
     color: TEXT_COLOR,
+    fontFamily:'serif',
   },
   activeTabText: {
     color: CARD_BACKGROUND_COLOR,
@@ -320,6 +322,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 16,
     color: CLICKABLE_TEXT_COLOR,
+    fontFamily:'serif',
   },
   searchItemsContainer: {
     marginHorizontal: 5

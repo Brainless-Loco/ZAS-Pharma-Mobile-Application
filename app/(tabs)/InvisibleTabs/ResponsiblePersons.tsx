@@ -120,5 +120,6 @@ const styles = StyleSheet.create({
       marginTop: 10,
       fontSize: 16,
       color: CLICKABLE_TEXT_COLOR,
+      fontFamily:'serif',
     },
 });

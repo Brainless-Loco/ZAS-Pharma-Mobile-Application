@@ -94,13 +94,16 @@ const styles = StyleSheet.create({
     fontSize: 24, 
     fontWeight: 'bold',
     color: TEXT_COLOR, 
-    marginBottom: 10 
+    marginBottom: 10,
+    fontFamily: 'serif',
   },
   sectionLabel: { 
     fontSize: 20, 
     fontWeight: 'bold', 
     marginTop: 20,
-    color: TEXT_COLOR_2, 
+    color: TEXT_COLOR_2,
+    fontFamily: 'serif',
+    lineHeight: 21 
   },
   pickerContainer: {
     borderRadius: 15,  // Rounded corners
@@ -157,10 +160,12 @@ const styles = StyleSheet.create({
     color: BUTTON_COLOR, 
     textAlign: 'center', 
     fontSize: 20,
-    fontWeight: 600
+    fontWeight: 700,
+    fontFamily: 'serif',
 
   },
   calculateBtnText:{
     color: '#fff',
+    fontFamily: 'serif',
   }
 });

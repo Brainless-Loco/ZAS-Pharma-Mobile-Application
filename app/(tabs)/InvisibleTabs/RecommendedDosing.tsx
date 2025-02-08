@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontSize: 16,
         color: CLICKABLE_TEXT_COLOR,
+        fontFamily:'serif',
     },
     section: {
         marginVertical: 10,
@@ -73,6 +74,7 @@ const styles = StyleSheet.create({
         color: TEXT_COLOR,
         fontWeight: '700',
         marginBottom: 8,
+        fontFamily:'serif',
     },
     box: {
         width: '92%',
@@ -93,21 +95,24 @@ const styles = StyleSheet.create({
     },
     quantity: {
         fontSize: 50,
-        fontWeight: '700',
+        fontWeight: 700,
         color: BUTTON_COLOR,
+        fontFamily:'serif',
     },
     unit: {
         fontSize: 22,
         color: TEXT_COLOR,
-        fontWeight: '600',
+        fontWeight: 700,
         marginLeft: 8,
+        fontFamily:'serif',
     },
     orText: {
         textAlign: 'center',
-        fontSize: 15,
+        fontSize: 20,
         fontWeight: '700',
         color: TEXT_COLOR,
         marginVertical: 8,
+        fontFamily:'serif',
     },
     button: {
         alignSelf: 'center',
@@ -116,7 +121,7 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 12,
         marginTop: 50,
-        width: '60%',
+        width: '65%',
         alignItems: 'center',
         shadowColor: '#000',
         shadowOpacity: 0.2,
@@ -127,6 +132,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: BUTTON_COLOR,
         fontSize: 20,
-        fontWeight: 600,
+        fontWeight: 700,
+        fontFamily:'serif',
     },
 });

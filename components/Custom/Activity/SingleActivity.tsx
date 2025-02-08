@@ -68,11 +68,13 @@ const styles = StyleSheet.create({
   dateText: {
     fontSize: 12,
     color: CARD_BACKGROUND_COLOR,
+    fontFamily:'serif',
   },
   title: {
     marginHorizontal: 10,
     marginVertical: 10,
     fontSize: 16,
+    fontFamily:'serif',
     fontWeight: 'bold',
     color: TEXT_COLOR,
   },
@@ -94,6 +96,7 @@ const styles = StyleSheet.create({
   socialText: {
     marginLeft: 5,
     fontSize: 13,
+    fontFamily:'serif',
     color: BUTTON_COLOR,
     fontWeight:'500',
   },

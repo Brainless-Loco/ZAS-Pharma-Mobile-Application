@@ -80,7 +80,8 @@ const styles = StyleSheet.create({
   },
   doseCalculatorNavigationBtnText:{
     fontSize: 18,
-    fontWeight: '400',
+    fontFamily:'serif',
+    fontWeight: 500,
     marginLeft: 5,
     color: BUTTON_COLOR
   },
@@ -89,20 +90,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 22,
+    fontSize: 21,
     color:CLICKABLE_TEXT_COLOR,
-    fontWeight: '500',
+    fontWeight: '700',
+    fontFamily:'serif',
   },
   genericName: {
     fontSize: 17,
     color: TEXT_COLOR_2,
     marginVertical: 3,
-    fontWeight:'400'
+    fontWeight:'400',
+    fontFamily:'serif',
   },
   strength: {
     fontSize: 16,
     color: CLICKABLE_TEXT_COLOR,
-    fontWeight:'500'
+    fontWeight:'500',
+    fontFamily:'serif',
   },
   availability: {
     flex: 1,
@@ -110,8 +114,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   availabilityText: {
-    fontSize:15,
-    fontWeight:'500',
+    fontSize:14,
+    fontFamily:'serif',
+    fontWeight: 200,
     textAlign:'center',
   }
 });

@@ -56,9 +56,11 @@ const styles = StyleSheet.create({
     },
     activityTitle: {
       fontSize: 18,
+      fontFamily:'serif',
       fontWeight: 'bold',
       color: TEXT_COLOR_2,
       width:'100%',
+      lineHeight:18,
     },
     socialLinks: {
       flex: 1, // 25% width

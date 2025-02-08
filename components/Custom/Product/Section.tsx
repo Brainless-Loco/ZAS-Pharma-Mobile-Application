@@ -22,14 +22,14 @@ const styles = StyleSheet.create({
     section: {
         marginBottom: 15,
         backgroundColor: NESTED_CARD_COLOR,
-        shadowColor:"#000000",
-        shadowOffset: {
-            width: 3,
-            height: 5,
-        },
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
-        elevation: 2,
+        // shadowColor:"#000000",
+        // shadowOffset: {
+        //     width: 3,
+        //     height: 5,
+        // },
+        // shadowOpacity: 0.5,
+        // shadowRadius: 5,
+        // elevation: 2,
     },
     label: {
         fontWeight: '600',
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
         paddingHorizontal:10,
         paddingVertical: 5,
         borderRadius: 5,
-        borderBottomLeftRadius:0,
-        borderBottomRightRadius:0
+        // borderBottomLeftRadius:0,
+        // borderBottomRightRadius:0
     },
     content: {
         fontSize: 18,
@@ -49,8 +49,9 @@ const styles = StyleSheet.create({
         color: TEXT_COLOR_2,
         paddingLeft: 20,
         paddingRight:5,
-        borderWidth:1,
-        borderColor: CARD_BACKGROUND_COLOR,
+        // borderWidth:1,
+        // borderBottomWidth:1,
+        // borderColor: CARD_BACKGROUND_COLOR,
         paddingVertical:5,
         borderRadius: 5,
         borderTopRightRadius:0,

@@ -84,7 +84,7 @@ const ProductDetails = ({route}:{route:any}) => {
         keyExtractor={(item, index) => index.toString()}
         style={styles.allPricesContainer}
       />,
-      <Section key="manufacturer" label="Manufacturer" content={product.manufacturer_info.name} />,
+      <Section key="manufacturer" label="Manufacturer" content={[product.manufacturer_info.name, "\n- MA Holder: ", product.manufacturer_info.ma_holder]} />,
       <Section key="origin" label="Origin" content={getCountryWithFlag(product.origin)} />,
       <Section key="dosage" label="Dosage" content={product.dosing_information} isList />,
       <Section key="sideEffects" label="Side Effects" content={product.side_effects} isList />,

@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     color: TEXT_COLOR,
-    fontFamily: 'sans-serif',
+    fontFamily: 'serif',
   },
   headerStyle:{
     backgroundColor: BACKGROUND_COLOR,

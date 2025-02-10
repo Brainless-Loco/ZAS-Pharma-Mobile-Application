@@ -83,9 +83,10 @@ export default function ResponsiblePersons({route}:{route:any}) {
     return (
         <ScrollView style={styles.container}>
             <SubHeader text={"You are one call away to place an order. Please make a call to our responsible persons for every individual category."} />
-            {divisions.map((division: { id: string; title: string;}, index) => (
+            {divisions.map((division: { id: string; title: string;banners:any[]}, index) => (
                 <ResponsiblePersonsExpandableBox
                   id={division.id} 
+                  banners={division.banners? division.banners:[]}
                   key={index}
                   groupTitle={division.title}
                   toBeExpanded={division.id==toBeExpandedDivisionId && division.title == toBeExpandedDivisionTitle}

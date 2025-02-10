@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 13,
     elevation: 10,
-    overflow: 'visible',
   },
   TitleAndButtonContainer: {
     flexDirection: 'row',

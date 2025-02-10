@@ -44,11 +44,12 @@ export default function Divisions() {
         </View>
       }
       
-      {!loading && divisions.map((division: { id: string; title: string; products: any[] }, index) => {
+      {!loading && divisions.map((division: { id: string; title: string; banners: any[] }, index) => {
         return <ExpandableDivisionBox 
           key={index}
           title={division.title}
           id={division.id}
+          banners={division.banners? division.banners:[]}
         />
       })}
       <View style={{height:50}}></View>

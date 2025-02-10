@@ -12,7 +12,7 @@ const Calculator = () => {
   const [heightUnit, setHeightUnit] = useState('Cm');
   const [weight, setWeight] = useState('');
   const [weightUnit, setWeightUnit] = useState('kg');
-  const [gender, setGender] = useState('');
+  const [gender, setGender] = useState('Male');
   const [renalFunction, setRenalFunction] = useState('');
   const [creatinineState, setCreatinineState] = useState('Stable');
   const [creatinine, setCreatinine] = useState('');

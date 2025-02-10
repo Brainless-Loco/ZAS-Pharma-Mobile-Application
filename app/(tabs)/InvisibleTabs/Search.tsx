@@ -8,42 +8,6 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/utils/firebase';
 import { useIsFocused } from '@react-navigation/native';
 
-const dummyCategoriesData = [
-  {
-    categoryTitle: 'Pain Relief',
-    products: [
-      {
-        title: 'Paracetamol',
-        genericName: 'Acetaminophen',
-        strengthForm: '500 mg in 10 tablets',
-        isAvailable: true,
-      },
-      {
-        title: 'Ibuprofen',
-        genericName: 'Ibuprofen',
-        strengthForm: '200 mg in 20 capsules',
-        isAvailable: false,
-      },
-    ],
-  },
-  {
-    categoryTitle: 'Antibiotics',
-    products: [
-      {
-        title: 'Amoxicillin',
-        genericName: 'Amoxicillin',
-        strengthForm: '250 mg in 10 tablets',
-        isAvailable: true,
-      },
-      {
-        title: 'Azithromycin',
-        genericName: 'Azithromycin',
-        strengthForm: '500 mg in 5 tablets',
-        isAvailable: true,
-      },
-    ],
-  },
-];
 
 export default function Search({ }) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -66,7 +30,7 @@ export default function Search({ }) {
         id: doc.id,
         ...doc.data(),
       }));
-      setMedicines([...medicineList].sort((a:any, b:any) => a.title.localeCompare(b.title)) as any);
+      setMedicines([...medicineList].sort((a: any, b: any) => a.title.localeCompare(b.title)) as any);
     } catch (error) {
       console.error('Error fetching products:', error);
     } finally {
@@ -83,7 +47,7 @@ export default function Search({ }) {
         id: doc.id,
         ...doc.data(),
       }));
-      setDivisions([...divisionList].sort((a:any, b:any) => a.title.localeCompare(b.title)) as any);
+      setDivisions([...divisionList].sort((a: any, b: any) => a.title.localeCompare(b.title)) as any);
     } catch (error) {
       console.error('Error fetching divisions:', error);
     } finally {
@@ -154,8 +118,8 @@ export default function Search({ }) {
       <View style={styles.tabGroup}>
         {/* Medicines Tab */}
         <Pressable onPress={() => setIsMedicineSearch(true)}
-          style={[ styles.tab, styles.leftTab, isMedicineSearch && styles.activeTab, isMedicineSearch && styles.activeTabLeftBorder ]}>
-          <Text style={[ styles.tabText, isMedicineSearch && styles.activeTabText,]}>
+          style={[styles.tab, styles.leftTab, isMedicineSearch && styles.activeTab, isMedicineSearch && styles.activeTabLeftBorder]}>
+          <Text style={[styles.tabText, isMedicineSearch && styles.activeTabText,]}>
             Medicines
           </Text>
         </Pressable>
@@ -176,10 +140,11 @@ export default function Search({ }) {
           </View>
         }
         {!loading && !searchQuery && !isMedicineSearch && divisions.length > 0 &&
-          divisions.map((division: { title: string, id: string }, index) => (
+          divisions.map((division: { title: string, id: string, banners: any[] }, index) => (
             <ExpandableCategoryBox
               key={index}
               title={division.title}
+              banners={division.banners ? division.banners : []}
               id={division.id}
             />
           ))
@@ -188,8 +153,9 @@ export default function Search({ }) {
         {/* For Searching.... */}
         {
           searchQuery && !isMedicineSearch && searchedDivisions.length > 0 &&
-          searchedDivisions.map((division: { title: string, id: string }, index) => (
+          searchedDivisions.map((division: { title: string, id: string, banners:any[] }, index) => (
             <ExpandableCategoryBox
+              banners={division.banners?division.banners:[]}
               key={index}
               title={division.title}
               id={division.id}
@@ -257,16 +223,16 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 15,
     color: TEXT_COLOR,
-    maxHeight:50,
-    fontFamily:'serif',
+    maxHeight: 50,
+    fontFamily: 'serif',
   },
   tabGroup: {
     flexDirection: 'row',
     borderRadius: 25,
     overflow: 'hidden',
     backgroundColor: CARD_BACKGROUND_COLOR,
-    width:'80%',
-    marginHorizontal:'auto',
+    width: '80%',
+    marginHorizontal: 'auto',
     marginBottom: 10,
     shadowColor: "#000",
     shadowOffset: {
@@ -298,7 +264,7 @@ const styles = StyleSheet.create({
   tabText: {
     fontSize: 17,
     color: TEXT_COLOR,
-    fontFamily:'serif',
+    fontFamily: 'serif',
   },
   activeTabText: {
     color: CARD_BACKGROUND_COLOR,
@@ -322,17 +288,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 16,
     color: CLICKABLE_TEXT_COLOR,
-    fontFamily:'serif',
+    fontFamily: 'serif',
   },
   searchItemsContainer: {
     marginHorizontal: 5
   },
-  activeTabLeftBorder:{
-    borderTopRightRadius:25,
-    borderBottomRightRadius:25,
+  activeTabLeftBorder: {
+    borderTopRightRadius: 25,
+    borderBottomRightRadius: 25,
   },
-  activeTabRightBorder:{
-    borderTopLeftRadius:25,
-    borderBottomLeftRadius:25,
+  activeTabRightBorder: {
+    borderTopLeftRadius: 25,
+    borderBottomLeftRadius: 25,
   },
 });

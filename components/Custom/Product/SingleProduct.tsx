@@ -48,7 +48,7 @@ export default function SingleProduct({ product, isSearchItem = false, isForDose
         </Text>
       </View> */}
       <View style={[styles.productInfoWithBanner, {
-        backgroundColor: isSearchItem? CARD_BACKGROUND_COLOR : NESTED_CARD_COLOR
+        backgroundColor: isSearchItem? CARD_BACKGROUND_COLOR: NESTED_CARD_COLOR 
       }]}>
         {/* <Text style={styles.title}>{product.title}</Text> */}
         {(product.banners && product.banners.length>0) ?
@@ -118,7 +118,6 @@ const styles = StyleSheet.create({
   banner: {
     width: '100%',
     height: '100%',
-    backgroundColor: NESTED_CARD_COLOR,
     borderRadius: 10,
   },
   title: {

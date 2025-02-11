@@ -1,12 +1,12 @@
 import { BACKGROUND_COLOR, BUTTON_COLOR, CARD_BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR, TEXT_COLOR } from '@/components/ui/CustomColor';
 import React, { useEffect, useState } from 'react'
-import { View, TextInput, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, Text, Pressable } from 'react-native';
+import { View, TextInput, StyleSheet, ScrollView, ActivityIndicator, Text, Pressable } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ExpandableCategoryBox from '@/components/Custom/Division/ExpandableDivisionBox';
 import SingleProduct from '@/components/Custom/Product/SingleProduct';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/utils/firebase';
-import { useIsFocused } from '@react-navigation/native';
+// import { useIsFocused } from '@react-navigation/native';
 
 
 export default function Search({ }) {
@@ -19,7 +19,7 @@ export default function Search({ }) {
   const [searchedMedicines, setSearchedMedicines] = useState([])
   const [searchedDivisions, setSearchedDivisions] = useState([])
 
-  const isFocused = useIsFocused()
+  // const isFocused = useIsFocused()
 
   const fetchMedicines = async () => {
     setLoading(true);
@@ -56,11 +56,15 @@ export default function Search({ }) {
   }
 
   useEffect(() => {
-    if (isFocused) {
-      fetchMedicines()
-      fetchDivisions()
-    }
-  }, [isFocused])
+    // if (isFocused) {
+      if(medicines.length<1) fetchMedicines()
+      if(divisions.length<1) fetchDivisions()
+    // }
+  }, [
+    // isFocused
+    medicines,
+    divisions
+  ])
 
   useEffect(() => {
     if (searchQuery) {

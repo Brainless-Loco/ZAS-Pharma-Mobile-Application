@@ -54,7 +54,7 @@ export default function ExpandableDivisionBox(
           )}
         </Text> */}
       </View>
-      <View style={{ marginTop: isExpanded ? 20 : 0, width:'100%' }}>
+      <View style={{ marginTop: isExpanded ? 20 : 0, width: '100%' }}>
         {
           !loading && isExpanded && products.length > 0 &&
           products.map((product, index) => (

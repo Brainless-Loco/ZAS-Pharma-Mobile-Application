@@ -1,6 +1,6 @@
 import { BACKGROUND_COLOR, BUTTON_COLOR, CARD_BACKGROUND_COLOR, CLICKABLE_TEXT_COLOR, TEXT_COLOR } from '@/components/ui/CustomColor';
 import React, { useEffect, useState } from 'react'
-import { View, TextInput, StyleSheet, ScrollView, ActivityIndicator, Text, Pressable } from 'react-native';
+import { View, TextInput, StyleSheet, ScrollView, ActivityIndicator, Text, Pressable, RefreshControl } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ExpandableCategoryBox from '@/components/Custom/Division/ExpandableDivisionBox';
 import SingleProduct from '@/components/Custom/Product/SingleProduct';
@@ -22,7 +22,6 @@ export default function Search({ }) {
   // const isFocused = useIsFocused()
 
   const fetchMedicines = async () => {
-    setLoading(true);
     const productsRef = collection(db, `Products`);
     try {
       const medicineData = await getDocs(productsRef);
@@ -34,12 +33,10 @@ export default function Search({ }) {
     } catch (error) {
       console.error('Error fetching products:', error);
     } finally {
-      setLoading(false);
     }
   }
 
   const fetchDivisions = async () => {
-    setLoading(true);
     const divisionsRef = collection(db, 'Divisions');
     try {
       const divisionData = await getDocs(divisionsRef);
@@ -51,14 +48,30 @@ export default function Search({ }) {
     } catch (error) {
       console.error('Error fetching divisions:', error);
     } finally {
-      setLoading(false);
     }
   }
 
+  const onRefresh = async () => {
+    if (isMedicineSearch) setMedicines([])
+    else setDivisions([])
+    if (isMedicineSearch) {
+      fetchMedicines();
+      fetchDivisions();
+    }
+    else {
+      fetchDivisions();
+      fetchMedicines();
+    }
+  };
+
   useEffect(() => {
     // if (isFocused) {
-      if(medicines.length<1) fetchMedicines()
-      if(divisions.length<1) fetchDivisions()
+    if (medicines.length < 1 || divisions.length < 1) {
+      setLoading(true)
+      if (medicines.length < 1) fetchMedicines()
+      if (divisions.length < 1) fetchDivisions()
+      setLoading(false)
+    }
     // }
   }, [
     // isFocused
@@ -136,7 +149,15 @@ export default function Search({ }) {
           </Text>
         </Pressable>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.searchItemsContainer}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.searchItemsContainer}
+         refreshControl={
+          <RefreshControl
+            refreshing={loading}
+            onRefresh={onRefresh}
+            tintColor={BACKGROUND_COLOR}
+          />
+        }
+      >
         {loading &&
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color={CLICKABLE_TEXT_COLOR} />
@@ -157,9 +178,9 @@ export default function Search({ }) {
         {/* For Searching.... */}
         {
           searchQuery && !isMedicineSearch && searchedDivisions.length > 0 &&
-          searchedDivisions.map((division: { title: string, id: string, banners:any[] }, index) => (
+          searchedDivisions.map((division: { title: string, id: string, banners: any[] }, index) => (
             <ExpandableCategoryBox
-              banners={division.banners?division.banners:[]}
+              banners={division.banners ? division.banners : []}
               key={index}
               title={division.title}
               id={division.id}

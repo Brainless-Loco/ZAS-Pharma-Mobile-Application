@@ -5,7 +5,7 @@ import { NavigationProp } from '@react-navigation/native';
 import { useNavigation } from 'expo-router';
 import { doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, Linking } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, Linking, Alert } from 'react-native';
 
 type RootStackParamList = {
   ResponsiblePersons: { toBeExpandedDivisionId: string, toBeExpandedDivisionTitle: string };
@@ -22,6 +22,14 @@ const ProductDetails = ({route}:{route:any}) => {
     const getCountryWithFlag = (name: string)=>{
       const country = countries.find(country => country.name === name);
       return country ? `${country.name} ${country.flag}` : `${name} (Flag not found)`;
+    }
+
+    const tryToNavigate = (link:string)=>{
+      if (link) {
+        Linking.openURL(link).catch(err => console.error('An error occurred', err));
+      } else {
+        Alert.alert("Link Unavailable","This link is currently unavailable or invalid. Please try again later.")
+      }
     }
 
     useEffect(() => {
@@ -100,10 +108,10 @@ const ProductDetails = ({route}:{route:any}) => {
       </View>,
       <Text key="knowMore" style={styles.knowMoreAboutText}>KNOW MORE ABOUT</Text>,
       <View key="bottomButtons" style={[styles.bottomButtons, {marginBottom:80}]}>
-        <TouchableOpacity style={styles.bottomButton} onPress={()=>Linking.openURL(product.additional_documents_link)}>
+        <TouchableOpacity style={styles.bottomButton} onPress={()=>tryToNavigate(product.additional_documents_link)}>
           <Text style={styles.bottomButtonText}>Product</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.bottomButton} onPress={()=>Linking.openURL(product.manufacturer_info.website_link)}>
+        <TouchableOpacity style={styles.bottomButton} onPress={()=>tryToNavigate(product.manufacturer_info.website_link)}>
           <Text style={styles.bottomButtonText}>Manufacturer</Text>
         </TouchableOpacity>
       </View>

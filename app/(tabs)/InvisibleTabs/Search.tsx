@@ -150,7 +150,7 @@ export default function Search({ }) {
         </Pressable>
       </View>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.searchItemsContainer}
-         refreshControl={
+        refreshControl={
           <RefreshControl
             refreshing={loading}
             onRefresh={onRefresh}

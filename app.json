@@ -13,8 +13,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/zas-mediguide-logo.png",
-        "backgroundColor": "#DAE4F5"
+        "foregroundImage": "./assets/images//ZAS-MediGuide-Logo-01.png",
+        "backgroundColor": "#fff"
       },
       "package": "com.brainless_loco.ZASMediGuideApp"
     },

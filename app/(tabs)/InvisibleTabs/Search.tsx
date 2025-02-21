@@ -6,6 +6,7 @@ import ExpandableCategoryBox from '@/components/Custom/Division/ExpandableDivisi
 import SingleProduct from '@/components/Custom/Product/SingleProduct';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/utils/firebase';
+import ProductListWithLoadMoreBtn from '@/components/Custom/Product/ProductListWithLoadMoreBtn';
 // import { useIsFocused } from '@react-navigation/native';
 
 
@@ -164,6 +165,11 @@ export default function Search({ }) {
             <Text style={styles.loadingText}>Searching...</Text>
           </View>
         }
+        {!loading && !searchQuery && isMedicineSearch && medicines.length > 0 &&
+          <ProductListWithLoadMoreBtn medicines={medicines}/>
+        }
+
+
         {!loading && !searchQuery && !isMedicineSearch && divisions.length > 0 &&
           divisions.map((division: { title: string, id: string, banners: any[] }, index) => (
             <ExpandableCategoryBox
@@ -187,26 +193,9 @@ export default function Search({ }) {
             />
           ))
         }
-        {!loading && !searchQuery && isMedicineSearch && medicines.length > 0 &&
-          medicines.map((product, index) => (
-            <SingleProduct
-              isSearchItem={true}
-              key={index}
-              product={product}
-              isForDoseCalculation={false}
-            />
-          ))
-        }
         {
           searchQuery && isMedicineSearch && searchedMedicines.length > 0 &&
-          searchedMedicines.map((product, index) => (
-            <SingleProduct
-              isSearchItem={true}
-              key={index}
-              product={product}
-              isForDoseCalculation={false}
-            />
-          ))
+          <ProductListWithLoadMoreBtn medicines={searchedMedicines}/>
         }
 
 

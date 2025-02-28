@@ -4,7 +4,7 @@
     "slug": "ZAS-MediGuide-Application",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/ZAS-MediGuide-Logo-01.png",
+    "icon": "./assets/images/ZAS-MedGuide-Logo-01.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images//ZAS-MediGuide-Logo-01.png",
+        "foregroundImage": "./assets/images/ZAS-MedGuide-Logo-01.png",
         "backgroundColor": "#fff"
       },
       "package": "com.brainless_loco.ZASMediGuideApp"
@@ -21,7 +21,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/ZAS-MediGuide-Logo-01.png"
+      "favicon": "./assets/images/ZAS-MedGuide-Logo-01.png"
     },
     "plugins": [
       "expo-router",

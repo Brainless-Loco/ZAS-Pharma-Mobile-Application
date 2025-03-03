@@ -2,12 +2,12 @@ import { BUTTON_COLOR, TEXT_COLOR } from '@/components/ui/CustomColor';
 import React from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 
-const LabelInput = ({ label, value, setValue, unit, unitToggle }:{label:string, value:string, setValue:any, unit:any, unitToggle:any }) => {
+const LabelInput = ({ label, value, setValue, unit, unitToggle, disabled }:{label:string, value:string, setValue:any, unit:any, unitToggle:any, disabled:boolean }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.input} value={value} onChangeText={setValue} keyboardType="numeric" />
+        <TextInput editable={!disabled} style={styles.input} value={value} onChangeText={setValue} keyboardType="numeric" />
         {unitToggle ? (
           <View style={styles.toggleContainer}>
             {unitToggle.options.map((option:string, idx:number) => (
@@ -99,18 +99,18 @@ const styles = StyleSheet.create({
     alignItems:'center',
 },
   activeToggle: { 
-    backgroundColor: BUTTON_COLOR 
+    backgroundColor: BUTTON_COLOR,
 },
 activeToggleText:{
     color: 'white', 
     fontSize: 18,
-    fontWeight:600
+    fontWeight:900,
+    fontFamily:'serif',
 },
   inActiveToggleText: { 
     color: BUTTON_COLOR,
     fontSize: 18,
     fontWeight: 700,
-    fontFamily:'serif',
     fontFamily:'serif',
 },
   leftRadius: {

@@ -9,7 +9,7 @@ type RootStackParamList = {
 };
 export default function RecommendedDosing({ route }: { route: any }) {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>()
-    const { product } = route.params ?? {};
+    const { product,loadingDose,maintenanceDose } = route.params ?? {};
 
     return (
         <ScrollView style={styles.container}>
@@ -17,8 +17,8 @@ export default function RecommendedDosing({ route }: { route: any }) {
             <View style={styles.section}>
                 <Text style={styles.title}>Loading Dose:</Text>
                 <View style={styles.box}>
-                    <Text style={styles.quantity}>100</Text>
-                    <Text style={styles.unit}>mg CBA IV</Text>
+                    <Text style={styles.quantity}>{loadingDose}</Text>
+                    <Text style={styles.unit}>CBA</Text>
                 </View>
             </View>
 
@@ -26,14 +26,14 @@ export default function RecommendedDosing({ route }: { route: any }) {
             <View style={styles.section}>
                 <Text style={styles.title}>Maintainance Dose:</Text>
                 <View style={styles.box}>
-                    <Text style={styles.quantity}>50</Text>
-                    <Text style={styles.unit}>mg CBA IV Q8hr</Text>
+                    <Text style={styles.quantity}>{maintenanceDose}</Text>
+                    <Text style={styles.unit}>CBA</Text>
                 </View>
-                <Text style={styles.orText}>Or</Text>
+                {/* <Text style={styles.orText}>Or</Text>
                 <View style={styles.box}>
                     <Text style={styles.quantity}>75</Text>
                     <Text style={styles.unit}>mg CBA IV Q12hr</Text>
-                </View>
+                </View> */}
             </View>
 
             {/* Calculate Again Button */}

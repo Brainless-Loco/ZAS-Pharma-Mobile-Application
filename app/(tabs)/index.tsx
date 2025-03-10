@@ -7,7 +7,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Foundation from '@expo/vector-icons/Foundation';
 import { StyleSheet } from 'react-native';
 import HeaderLeft from '@/components/Custom/Header/HeaderLeft';
-import DoseCalculator from './VisibleTabs/DoseCalculator';
+// import DoseCalculator from './VisibleTabs/DoseCalculator';
 import Activity from './VisibleTabs/Activity';
 import Home from './VisibleTabs/Home';
 import AllBusiness from './VisibleTabs/AllBusiness';
@@ -26,42 +26,43 @@ export default function RootLayout() {
     <NavigationIndependentTree>
       <NavigationContainer>
         <Tab.Navigator
-              initialRouteName="Home"
-              screenOptions={({ route }) => ({
-                tabBarIcon: ({ focused }) => {
-                  let size=25;
-                  const iconColor = focused ? BUTTON_COLOR : INACTIVE_TAB_ICON_COLOR; // Active/Inactive icon color
+          initialRouteName="Home"
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused }) => {
+              let size = 25;
+              const iconColor = focused ? BUTTON_COLOR : INACTIVE_TAB_ICON_COLOR; // Active/Inactive icon color
 
-                  if (route.name === 'Calculate Dose') {
-                    return <MaterialCommunityIcons name="calculator-variant" size={size} color={iconColor} />
-                  } else if (route.name === 'Activities') {
-                    return <Ionicons name="document-text" size={size} color={iconColor} />
-                  } else if (route.name === 'Home') {
-                    return <Ionicons name="home" size={size} color={iconColor} /> 
-                  } else if (route.name === 'All Businesses') {
-                    return <MaterialCommunityIcons name="graph" size={size} color={iconColor} />
-                  } else if (route.name === 'Feedback') {
-                    return <Foundation name="comment-quotes" size={size} color={iconColor} />
-                  }
-                },
-                tabBarLabelStyle: {
-                  fontSize: 9,
-                  fontWeight:'bold',
-                  fontFamily: 'sans-serif',
-                  lineHeight: 21
-                },
-                tabBarActiveTintColor: BUTTON_COLOR, // Active label color
-                tabBarInactiveTintColor: INACTIVE_TAB_LABEL_COLOR, // Inactive label color
-                tabBarStyle: {
-                  height: 60,
-                  backgroundColor: BACKGROUND_COLOR, // Background color for the tab bar
-                },
-                animation:'shift'
-              })}
-              backBehavior={'history'}
-            >
+              // if (route.name === 'Calculate Dose') {
+              //   return <MaterialCommunityIcons name="calculator-variant" size={size} color={iconColor} />
+              // } else 
+              if (route.name === 'Activities') {
+                return <Ionicons name="document-text" size={size} color={iconColor} />
+              } else if (route.name === 'Home') {
+                return <Ionicons name="home" size={size} color={iconColor} />
+              } else if (route.name === 'All Businesses') {
+                return <MaterialCommunityIcons name="graph" size={size} color={iconColor} />
+              } else if (route.name === 'Feedback') {
+                return <Foundation name="comment-quotes" size={size} color={iconColor} />
+              }
+            },
+            tabBarLabelStyle: {
+              fontSize: 12,
+              fontWeight: 'bold',
+              fontFamily: 'sans-serif',
+              // lineHeight: 21
+            },
+            tabBarActiveTintColor: BUTTON_COLOR, // Active label color
+            tabBarInactiveTintColor: INACTIVE_TAB_LABEL_COLOR, // Inactive label color
+            tabBarStyle: {
+              height: 55,
+              backgroundColor: BACKGROUND_COLOR, // Background color for the tab bar
+            },
+            animation: 'shift'
+          })}
+          backBehavior={'history'}
+        >
           {/* Visible Tabs */}
-          <Tab.Screen name="Calculate Dose"
+          {/* <Tab.Screen name="Calculate Dose"
             options={{
               headerTitle: 'Dose Calculator',
               headerTitleAlign: 'center',
@@ -71,130 +72,131 @@ export default function RootLayout() {
               headerTitleStyle: styles.headerTitleStyle,
               headerStyle: styles.headerStyle
             }}
-            component={DoseCalculator} />
-          <Tab.Screen name="Activities" 
+            component={DoseCalculator} /> */}
+          <Tab.Screen name="Home"
+            options={{
+              headerShown: false
+            }}
+            component={Home} />
+          <Tab.Screen name="Activities"
             options={{
               headerTitle: 'Our Latest Activities',
               headerTitleAlign: 'center',
               headerLeft: () => (
-              <HeaderLeft/>
+                <HeaderLeft />
               ),
               headerTitleStyle: styles.headerTitleStyle,
               headerStyle: styles.headerStyle
             }}
             component={Activity} />
-          <Tab.Screen name="Home" 
-            options={{
-              headerShown:false
-            }}
-            component={Home} />
+
           <Tab.Screen name="All Businesses"
             options={{
               headerTitle: 'Our All Businesses',
               headerTitleAlign: 'center',
               headerLeft: () => (
-              <HeaderLeft/>
+                <HeaderLeft />
               ),
               headerTitleStyle: styles.headerTitleStyle,
               headerStyle: styles.headerStyle
             }}
             component={AllBusiness} />
-          <Tab.Screen name="Feedback" 
-              options={{
-                headerTitle: 'Send Your Feedback',
-                headerTitleAlign: 'center',
-                headerLeft: () => (
-                <HeaderLeft/>
-                ),
-                headerTitleStyle: styles.headerTitleStyle,
-                headerStyle: styles.headerStyle
-              }}
-              component={Feedback} />
+          <Tab.Screen name="Feedback"
+            options={{
+              headerTitle: 'Send Your Feedback',
+              headerTitleAlign: 'center',
+              headerLeft: () => (
+                <HeaderLeft />
+              ),
+              headerTitleStyle: styles.headerTitleStyle,
+              headerStyle: styles.headerStyle
+            }}
+            component={Feedback} />
 
-            {/* Invisible Tabs */}
-            <Tab.Screen name="Divisions"
-                component={Divisions}
-                options={{
-                    tabBarItemStyle:{display:'none'},
-                    headerTitle: 'Divisions',
-                    headerTitleAlign: 'center',
-                    headerLeft: () => (
-                    <HeaderLeft/>
-                    ),
-                    headerTitleStyle: styles.headerTitleStyle,
-                    headerStyle: styles.headerStyle
-                }}
-            />
+          {/* Invisible Tabs */}
+          <Tab.Screen name="Divisions"
+            component={Divisions}
+            options={{
+              tabBarItemStyle: { display: 'none' },
+              headerTitle: 'Divisions',
+              headerTitleAlign: 'center',
+              headerLeft: () => (
+                <HeaderLeft />
+              ),
+              headerTitleStyle: styles.headerTitleStyle,
+              headerStyle: styles.headerStyle
+            }}
+          />
 
-            <Tab.Screen name="Search"
-                component={Search}
-                options={{
-                    tabBarItemStyle:{display:'none'},
-                    headerTitle: 'Search',
-                    headerTitleAlign: 'center',
-                    headerLeft: () => (
-                    <HeaderLeft/>
-                    ),
-                    headerTitleStyle: styles.headerTitleStyle,
-                    headerStyle: styles.headerStyle
-                }}
-            />
-            <Tab.Screen name="ProductDetails"
-                component={ProductDetails}
-                options={{
-                    tabBarItemStyle:{display:'none'},
-                    headerTitle: 'Details',
-                    headerTitleAlign: 'center',
-                    headerLeft: () => (
-                    <HeaderLeft/>
-                    ),
-                    headerTitleStyle: styles.headerTitleStyle,
-                    headerStyle: styles.headerStyle
-                }}
-            />
+          <Tab.Screen name="Search"
+            component={Search}
+            options={{
+              tabBarItemStyle: { display: 'none' },
+              headerTitle: 'Search',
+              headerTitleAlign: 'center',
+              headerLeft: () => (
+                <HeaderLeft />
+              ),
+              headerTitleStyle: styles.headerTitleStyle,
+              headerStyle: styles.headerStyle
+            }}
+          />
+          <Tab.Screen name="ProductDetails"
+            component={ProductDetails}
+            options={{
+              tabBarItemStyle: { display: 'none' },
+              headerTitle: 'Details',
+              headerTitleAlign: 'center',
+              headerLeft: () => (
+                <HeaderLeft />
+              ),
+              headerTitleStyle: styles.headerTitleStyle,
+              headerStyle: styles.headerStyle
+            }}
+          />
 
-            <Tab.Screen name="ResponsiblePersons"
-                component={ResponsiblePersons}
-                options={{
-                    tabBarItemStyle:{display:'none'},
-                    headerTitle: 'Responsible Persons',
-                    headerTitleAlign: 'center',
-                    headerLeft: () => (
-                    <HeaderLeft/>
-                    ),
-                    headerTitleStyle: styles.headerTitleStyle,
-                    headerStyle: styles.headerStyle
-                }}
-            />
+          <Tab.Screen name="ResponsiblePersons"
+            component={ResponsiblePersons}
+            options={{
+              tabBarItemStyle: { display: 'none' },
+              headerTitle: 'Responsible Persons',
+              headerTitleAlign: 'center',
+              headerLeft: () => (
+                <HeaderLeft />
+              ),
+              headerTitleStyle: styles.headerTitleStyle,
+              headerStyle: styles.headerStyle
+            }}
+          />
 
-            <Tab.Screen name="Dose Calculator For A Product"
-                component={Calculator}
-                options={{
-                    tabBarItemStyle:{display:'none'},
-                    headerTitle: 'Dose Calculator',
-                    headerTitleAlign: 'center',
-                    headerLeft: () => (
-                    <HeaderLeft/>
-                    ),
-                    headerTitleStyle: styles.headerTitleStyle,
-                    headerStyle: styles.headerStyle
-                }}
-            />
+          <Tab.Screen name="Dose Calculator For A Product"
+            component={Calculator}
+            options={{
+              tabBarItemStyle: { display: 'none' },
+              headerTitle: 'Dose Calculator',
+              headerTitleAlign: 'center',
+              headerLeft: () => (
+                <HeaderLeft />
+              ),
+              headerTitleStyle: styles.headerTitleStyle,
+              headerStyle: styles.headerStyle
+            }}
+          />
 
 
-            <Tab.Screen name="RecommendedDosing"
-                component={RecommendedDosing}
-                options={{
-                    tabBarItemStyle:{display:'none'},
-                    headerTitle: 'Recommended Dosing',
-                    headerTitleAlign: 'center',
-                    headerLeft: () => (
-                    <HeaderLeft/>
-                    ),
-                    headerTitleStyle: styles.headerTitleStyle,
-                    headerStyle: styles.headerStyle
-                }}
-                />
+          <Tab.Screen name="RecommendedDosing"
+            component={RecommendedDosing}
+            options={{
+              tabBarItemStyle: { display: 'none' },
+              headerTitle: 'Recommended Dosing',
+              headerTitleAlign: 'center',
+              headerLeft: () => (
+                <HeaderLeft />
+              ),
+              headerTitleStyle: styles.headerTitleStyle,
+              headerStyle: styles.headerStyle
+            }}
+          />
 
         </Tab.Navigator>
       </NavigationContainer>
@@ -209,11 +211,11 @@ const styles = StyleSheet.create({
     color: TEXT_COLOR,
     fontFamily: 'serif',
   },
-  headerStyle:{
+  headerStyle: {
     backgroundColor: BACKGROUND_COLOR,
     elevation: 0,
     shadowOpacity: 0,
     borderBottomWidth: 0,
-    height:45
+    height: 45
   }
 })
